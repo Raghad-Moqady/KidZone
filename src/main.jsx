@@ -8,7 +8,11 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
 import './index.css'
+import { CssBaseline } from '@mui/material';
 
 createRoot(document.getElementById('root')).render( 
-    <App /> 
+    <>
+    <CssBaseline />
+    <App />
+    </> 
 )
