@@ -1,6 +1,6 @@
 import { Box } from "@mui/material";
 import React from "react";
-import logo from '../../assets/imgs/logo.png'
+import kidZonelogo from '../../assets/imgs/logo.png'
 
 export default function Logo() {
   return (
@@ -12,7 +12,7 @@ export default function Logo() {
             width: "100%"
           }}
           alt="kidZone Logo"
-          src={logo}
+          src={kidZonelogo}
         ></Box>
    </Box>
     </>
