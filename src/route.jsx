@@ -5,6 +5,9 @@ import AuthLayout from "./layouts/AuthLayout.jsx";
 import Login from "./pages/auth/login/Login.jsx";
 import Register from './pages/auth/register/Register.jsx';
 import NotFound from "./pages/notFound/NotFound.jsx";
+import AboutUs from "./pages/aboutUs/AboutUs.jsx";
+import Products from "./pages/products/Products.jsx";
+import Cart from "./pages/cart/Cart.jsx";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +18,18 @@ const router = createBrowserRouter([
       // path :'/',
         index:true,
         element :<Home/>
+      },
+      {
+        path:'about',
+        element:<AboutUs/>
+      },
+      {
+        path:'products',
+        element:<Products/>
+      },
+      {
+        path:'cart',
+        element:<Cart/>
       },
       {
         path :'*',
