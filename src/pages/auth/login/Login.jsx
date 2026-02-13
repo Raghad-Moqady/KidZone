@@ -15,7 +15,8 @@ export default function Login() {
   const sendData=async(values)=>{
   //  console.log(values);
    try{
-      const response= await axios.post(`https://knowledgeshop.runasp.net/api/Auth/Account/Login`,values);
+      const response= await axios.post(`knowledgeshop.runasp.net/api/auth/Account/Login`,values);
+      // console.log(response);
       if(response.status === 200){
         localStorage.setItem("token",response.data.accessToken);
         navigate("/");
