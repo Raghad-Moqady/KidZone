@@ -1,5 +1,10 @@
-.ragisterPage{
-background-image: url("../../../assets/imgs/bg2.png"); 
- background-color: rgba(218, 105, 67, 0.231);
- background-blend-mode: overlay;
+.ragisterPage {
+background-image: linear-gradient(
+    
+    rgba(151, 128, 99, 0.584)
+  ),
+  url("../../../assets/imgs/bg2.png");
+/* background-color: #8B5E3C ; */
+/* background-blend-mode: overlay; */
+
 }

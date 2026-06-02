@@ -75,7 +75,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#f3720fc0" }}>
+    <AppBar position="static" sx={{ backgroundColor: "#978063" }}>
       <Container>
         <Toolbar disableGutters>
           {/* md screen*/}
@@ -123,7 +123,7 @@ function ResponsiveAppBar() {
                   key={page.name}
                   onClick={handleCloseNavMenu}
                 >
-                  <Typography sx={{ textAlign: "center" }}>
+                  <Typography sx={{color:"#8B5E3C" }}>
                     {page.name}
                   </Typography>
                 </MenuItem>
@@ -199,7 +199,7 @@ function ResponsiveAppBar() {
                   key={setting.name}
                   onClick={handleCloseUserMenu}
                 >
-                  <Typography sx={{ textAlign: "center" }}>
+                  <Typography sx={{color:"#8B5E3C" }}>
                     {setting.name}
                   </Typography>
                 </MenuItem>

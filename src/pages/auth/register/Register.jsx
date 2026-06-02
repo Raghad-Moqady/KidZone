@@ -63,9 +63,9 @@ export default function Register() {
   }
   return (
     <> 
-      <Box className={`${style.ragisterPage}`}  display={"flex"}  alignItems={"center"} justifyContent={"center"} height={"100vh"}>
+      <Box className={`${style.ragisterPage}`}  display={"flex"}  alignItems={"center"} justifyContent={"center"} height={"91vh"}>
         {/* img */}
-        {/* <Box sx={{ width: "10rem" ,mt:"15rem"}}>
+        <Box sx={{ width: "10rem" ,position:"absolute",bottom:"0",right:"0"}}>
                 <Box
                   component="img"
                   sx={{
@@ -74,13 +74,13 @@ export default function Register() {
                   alt="zebra img"
                   src={zebraImg}
                 ></Box>
-        </Box>  */}
+        </Box> 
 
          {/* form card */}
          {/* ...register('email') === id */}
-        <Box sx={{width:"40%", py:5 , textAlign:"center",  border: 1, borderColor:'orange' , borderRadius: '16px', backgroundColor:'white'}}>
+        <Box sx={{width:"40%", py:5 , textAlign:"center",  border: 1 , borderColor:'#8B5E3C' , borderRadius: '16px',backgroundColor:"#FFFFFF" }}>
             <Box display={"flex"}  justifyContent={"center"} > <Logo/> </Box>
-           <Typography variant='h5' component={"h1"} color="orange">Create an Account</Typography>
+           <Typography variant='h5' component={"h1"} color="#8B5E3C" fontWeight={"bold"}>Create an Account</Typography>
            {/* to show server errors */}
            {/* stop hear */}
            {Object.keys(serverValidationErrors).length > 0 && (
@@ -115,12 +115,12 @@ export default function Register() {
               error={errors.phoneNumber} helperText={errors.phoneNumber?.message}
               />
 
-              <Button type="submit" variant="contained"  endIcon={<SendIcon/>} sx={{backgroundColor:"#f3720fff", mt:2}}>sign up</Button>
+              <Button type="submit" variant="contained"  endIcon={<SendIcon/>} sx={{backgroundColor:"#E47221", mt:2}}>sign up</Button>
            </Box>
         </Box>
 
-         {/* img */}
-        {/* <Box sx={{ width: "8rem" }}>
+         {/* img
+        <Box sx={{ width: "8rem" ,position:"absolute",bottom:"15rem",right:"4rem"}}>
                 <Box
                   component="img"
                   sx={{

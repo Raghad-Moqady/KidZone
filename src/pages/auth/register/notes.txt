@@ -1,0 +1,54 @@
+--primary: #8B5E3C;      /* بني فاخر */
+--surface: #FFFFFF;      /* أبيض للكروت */
+
+
+
+--background: #F8F5F0;   /* بيج فاتح */
+--secondary: #1F314A;   للنافبار والفوتر /* كحلي 
+
+--accent: #C8A97E;    للازرار   /* ذهبي هادئ 
+
+ 
+--text: #2D3748;          رمادي غامق للنصوص
+
+
+ <Box sx={{ py:5 , textAlign:"center",  border: 1 , borderColor:'#8B5E3C' , borderRadius: '16px',backgroundColor:"#FFFFFF" }}>
+            <Box display={"flex"}  justifyContent={"center"} > <Logo/> </Box>
+           <Typography variant='h5' component={"h1"} color="#8B5E3C" fontWeight={"bold"}>Create an Account</Typography>
+           {/* to show server errors */}
+           {/* stop hear */}
+           {Object.keys(serverValidationErrors).length > 0 && (
+            <Alert severity="error" sx={{ textAlign: "start", mx: 5 }}>
+              {Object.entries(serverValidationErrors).map(([field, messages]) => (
+                <Box key={field} sx={{ mb: 1 }}>
+                  <strong>{field}:</strong>
+                  <ul style={{ margin: 0, paddingLeft: "20px" }}>
+                    {messages.map((msg, index) => (
+                      <li key={index}>{msg}</li>
+                    ))}
+                  </ul>
+                </Box>
+              ))}
+            </Alert>
+          )}
+          
+           <Box component={"form"} onSubmit={handleSubmit(sendData)} display={"flex"} flexDirection={"column"} gap={2} alignItems={"center"} px={10}>
+              <TextField color="none" type="email" id="email" label="Email" {...register('email')} variant="standard" fullWidth
+              error={errors.email} helperText={errors.email?.message}
+              />
+              <TextField color="none" type="password" id="password" label="Password" {...register('password')} variant="standard"  fullWidth
+              error={errors.password} helperText={errors.password?.message}
+              />
+              <TextField color="none" type="text" id="fullName" label="Full Name" {...register('fullName')}  variant="standard"  fullWidth 
+              error={errors.fullName} helperText={errors.fullName?.message}
+              />
+              <TextField color="none" type="text" id="userName" label="User Name" {...register('userName')}  variant="standard"  fullWidth 
+              error={errors.userName} helperText={errors.userName?.message}
+              />
+              <TextField color="none" type="text" id="phone" label="Phone" {...register('phoneNumber')}  variant="standard"  fullWidth 
+              error={errors.phoneNumber} helperText={errors.phoneNumber?.message}
+              />
+
+              <Button type="submit" variant="contained"  endIcon={<SendIcon/>} sx={{backgroundColor:"#E47221", mt:2}}>sign up</Button>
+           </Box>
+        </Box>
