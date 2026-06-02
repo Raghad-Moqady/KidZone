@@ -1,60 +1,59 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import Logo from '../logo/Logo.jsx';
-import { Card, Link } from '@mui/material';
-import { Link as routerLink } from 'react-router-dom';
-import PersonIcon from '@mui/icons-material/Person';
-import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import Logo from "../logo/Logo.jsx";
+import { Card, Link } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import PersonIcon from "@mui/icons-material/Person";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
-import style from './Navbar.module.css'
-import router from './../../route';
-
+import style from "./Navbar.module.css";
+import router from "../../Routes.jsx";
 
 const pages = [
   {
-    name: 'Home',
-    path:'/'
+    name: "Home",
+    path: "/",
   },
   {
-    name: 'About us',
-    path:'/about'
+    name: "About us",
+    path: "/about",
   },
   {
-    name: 'Products',
-    path:'/products'
+    name: "Products",
+    path: "/products",
   },
   {
-    name: 'Cart',
-    path:'/cart'
-  }
-  ];
-  const settings = [
+    name: "Cart",
+    path: "/cart",
+  },
+];
+const settings = [
   {
-    name: 'Login',
-    path:'/auth/login'
+    name: "Login",
+    path: "/auth/login",
   },
   {
-    name: 'Register',
-    path:'/auth/register'
+    name: "Register",
+    path: "/auth/register",
   },
   // {
   //   name: 'Logout',
   //   path:''
-  // } 
-  ];
-// const settings = ['Profile', 'Account', 'Dashboard','','', '']; 
+  // }
+];
+// const settings = ['Profile', 'Account', 'Dashboard','','', ''];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -76,22 +75,21 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{backgroundColor:"#f3720fc0"}}>
+    <AppBar position="static" sx={{ backgroundColor: "#f3720fc0" }}>
       <Container>
         <Toolbar disableGutters>
-
           {/* md screen*/}
-         <Box
+          <Box
             sx={{
-              display: { xs: 'none', md: 'flex' },
+              display: { xs: "none", md: "flex" },
             }}
-          > 
-               {/* logo */}
-                <Logo/>
-         </Box>
-           
+          >
+            {/* logo */}
+            <Logo />
+          </Box>
+
           {/* xs screen */}
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
+          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -106,84 +104,104 @@ function ResponsiveAppBar() {
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
+                vertical: "bottom",
+                horizontal: "left",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
+                vertical: "top",
+                horizontal: "left",
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{ display: { xs: 'block', md: 'none' } }}
+              sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
-                <MenuItem component={routerLink} to={page.path}  key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{page.name}</Typography>
+                <MenuItem
+                  component={RouterLink}
+                  to={page.path}
+                  key={page.name}
+                  onClick={handleCloseNavMenu}
+                >
+                  <Typography sx={{ textAlign: "center" }}>
+                    {page.name}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-              
-           <Box
+
+          <Box
             sx={{
-              display: { xs: 'flex', md: 'none' },
+              display: { xs: "flex", md: "none" },
               flexGrow: 1,
             }}
-          > 
-               {/* logo */}
-                <Logo/> 
+          >
+            {/* logo */}
+            <Logo />
           </Box>
 
-           {/* md screen*/}
-          <Box sx={{gap:4, justifyContent:'center', flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
+          {/* md screen*/}
+          <Box
+            sx={{
+              gap: 4,
+              justifyContent: "center",
+              flexGrow: 1,
+              display: { xs: "none", md: "flex" },
+            }}
+          >
             {pages.map((page) => (
               <Link
-              component={routerLink}
+                component={RouterLink}
                 to={page.path}
-                underline='none'
+                underline="none"
                 key={page.name}
                 onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
+                sx={{ my: 2, color: "white", display: "block" }}
               >
-
                 {page.name}
-               {/* {page.name=='Cart'? 3:''} */}
+                {/* {page.name=='Cart'? 3:''} */}
               </Link>
             ))}
           </Box>
-          
+
           {/* settings */}
-          <Box >
+          <Box>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 {/* للشخص المسجل دخوله */}
                 {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
 
                 {/* للشخص الزائر */}
-                <PersonIcon  fontSize="large"  sx={{ color: '#ffffff' }}/>
+                <PersonIcon fontSize="large" sx={{ color: "#ffffff" }} />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: "45px" }}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               keepMounted
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right",
               }}
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem component={routerLink} to={setting.path} key={setting.name} onClick={handleCloseUserMenu}>
-                  <Typography sx={{ textAlign: 'center' }}>{setting.name}</Typography>
+                <MenuItem
+                  component={RouterLink}
+                  to={setting.path}
+                  key={setting.name}
+                  onClick={handleCloseUserMenu}
+                >
+                  <Typography sx={{ textAlign: "center" }}>
+                    {setting.name}
+                  </Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -194,4 +212,3 @@ function ResponsiveAppBar() {
   );
 }
 export default ResponsiveAppBar;
-

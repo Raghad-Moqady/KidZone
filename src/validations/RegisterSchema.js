@@ -2,7 +2,7 @@ import * as yup from "yup"
 
 
 // يتم الاتفاق على الشروط بين الفرونت والباك و... الخ
-export const schema = yup.object({
+export const RegisterSchema = yup.object({
   //key's name== {...register('email')}... 
   email: yup.string().email("Invalid Email Format").required("Email Is Required"),
   password: yup.string().required("Password Is Required")

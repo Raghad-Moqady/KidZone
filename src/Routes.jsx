@@ -10,9 +10,11 @@ import Products from "./pages/products/Products.jsx";
 import Cart from "./pages/cart/Cart.jsx";
 
 const router = createBrowserRouter([
+  //layout1
   {
     path: "/",
     element:<MainLayout/>,
+    // errorElement: errorBage,
     children:[
       {
       // path :'/',
@@ -37,6 +39,7 @@ const router = createBrowserRouter([
       },
     ],
   },
+  //layout2
   {
     path:"/auth",
     element:<AuthLayout/>,

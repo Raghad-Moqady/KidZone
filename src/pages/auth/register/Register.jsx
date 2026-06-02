@@ -1,13 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import style from "./Register.module.css";
 import zebraImg from "../../../assets/imgs/zebra.webp";
 import rainbowImg from "../../../assets/imgs/rainbow.png";
-import { Box, Button, Card, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Card, TextField, Typography } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { schema } from "../../../validations/RegisterSchema.js";
+import { RegisterSchema } from "../../../validations/RegisterSchema.js";
+import Logo from "../../../components/logo/Logo.jsx";
 
 //  steps:
 /*
@@ -27,10 +28,14 @@ import { schema } from "../../../validations/RegisterSchema.js";
  
 
 export default function Register() {
+  const[serverValidationErrors,setServerValidationErrors]= useState({});
+  const[serverLogicErrors,setServerLogicErrors] =useState([]);
+  const[serverError,setServerError] =useState("");
+
   const {register, handleSubmit, formState:{errors}} =useForm({
-    resolver: yupResolver(schema),
-    //Submitبشكل افتراضي بتم استداعؤه عند ال
-    // mode: "onSubmit"
+    resolver: yupResolver(RegisterSchema),
+    // //Submitبشكل افتراضي بتم استداعؤه عند ال
+    // // mode: "onSubmit"
     mode: "onBlur"
   });
 
@@ -40,15 +45,27 @@ export default function Register() {
          const response= await axios.post(`https://kidzonestore.runasp.net/api/auth/Account/Register`,values);
          console.log(response);
        }catch(err){
-        //Validation (level 2): errors from backend (400,401,...,500)or from send operation 
-         console.log(err);
+        // console.log(err.response.status);
+        //Validation (level 2): errors from backend (400,401,...,500)or from send operation (internet)
+        // بالترتيب هاد الايرور ممكن يكون راجع من مرحلة الفالديشن 
+        if(err.response.data.title){
+          setServerValidationErrors(err.response.data.errors); 
+        }
+        //او من السيرفر => 500 : هاد الخطأ بكون راجع من الاكسبشن هاندلر بالباك
+        else if(err.response.status==500){
+          setServerError(err.response.data.message);
+        }
+        //او من الاخطاء التي تحدث بالservice =>try بال400,404.. (logic errors)
+        else if(err.response.data.message){
+           setServerLogicErrors(err.response.data.errors)
+        }
        }
   }
   return (
     <> 
-      <Box className="ragisterPage" display={"flex"}  alignItems={"center"} justifyContent={"center"} height={"100vh"}>
+      <Box className={`${style.ragisterPage}`}  display={"flex"}  alignItems={"center"} justifyContent={"center"} height={"100vh"}>
         {/* img */}
-        <Box sx={{ width: "10rem" ,mt:"15rem"}}>
+        {/* <Box sx={{ width: "10rem" ,mt:"15rem"}}>
                 <Box
                   component="img"
                   sx={{
@@ -57,12 +74,30 @@ export default function Register() {
                   alt="zebra img"
                   src={zebraImg}
                 ></Box>
-        </Box> 
+        </Box>  */}
 
          {/* form card */}
          {/* ...register('email') === id */}
-        <Box sx={{width:"40%", py:5 , textAlign:"center",  border: 1, borderColor:'orange' , borderRadius: '16px'}}>
-           <Typography variant='h5' component={"h1"} >Create an Account</Typography>
+        <Box sx={{width:"40%", py:5 , textAlign:"center",  border: 1, borderColor:'orange' , borderRadius: '16px', backgroundColor:'white'}}>
+            <Box display={"flex"}  justifyContent={"center"} > <Logo/> </Box>
+           <Typography variant='h5' component={"h1"} color="orange">Create an Account</Typography>
+           {/* to show server errors */}
+           {/* stop hear */}
+           {Object.keys(serverValidationErrors).length > 0 && (
+            <Alert severity="error" sx={{ textAlign: "start", mx: 5 }}>
+              {Object.entries(serverValidationErrors).map(([field, messages]) => (
+                <Box key={field} sx={{ mb: 1 }}>
+                  <strong>{field}:</strong>
+                  <ul style={{ margin: 0, paddingLeft: "20px" }}>
+                    {messages.map((msg, index) => (
+                      <li key={index}>{msg}</li>
+                    ))}
+                  </ul>
+                </Box>
+              ))}
+            </Alert>
+          )}
+          
            <Box component={"form"} onSubmit={handleSubmit(sendData)} display={"flex"} flexDirection={"column"} gap={2} alignItems={"center"} px={10}>
               <TextField color="none" type="email" id="email" label="Email" {...register('email')} variant="standard" fullWidth
               error={errors.email} helperText={errors.email?.message}
@@ -85,7 +120,7 @@ export default function Register() {
         </Box>
 
          {/* img */}
-        <Box sx={{ width: "8rem" }}>
+        {/* <Box sx={{ width: "8rem" }}>
                 <Box
                   component="img"
                   sx={{
@@ -94,7 +129,7 @@ export default function Register() {
                   alt="rainbow img"
                   src={rainbowImg}
                 ></Box>
-        </Box>
+        </Box> */}
        
       </Box>
     </>
