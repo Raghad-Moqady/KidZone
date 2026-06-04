@@ -11,6 +11,7 @@ import { RegisterSchema } from "../../../validations/RegisterSchema.js";
 import Logo from "../../../components/logo/Logo.jsx";
 import mainBgImg from "../../../assets/imgs/BG23.png";
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
+import SharedTextField from "../../../components/auth/sharedTextField/SharedTextField.jsx";
 
 //  steps:
 /*
@@ -95,52 +96,12 @@ export default function Register() {
           )}
           
            <Box component={"form"} onSubmit={handleSubmit(sendData)} display={"flex"} flexDirection={"column"} gap={2} alignItems={"center"} px={10} mt={3}>
-              <TextField  color="none" type="email" id="email" label="Email" {...register('email')} 
-              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
-      borderRadius: "50px",
-      overflow: "hidden",
-    },  "& .MuiInputLabel-root": {
-      color: "#5c3b22",
-    },}}
-              error={errors.email} helperText={errors.email?.message}
-              />
-              <TextField color="none" type="password" id="password" label="Password" {...register('password')}
-              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
-      borderRadius: "50px",
-      overflow: "hidden",
-    },  "& .MuiInputLabel-root": {
-      color: "#583c26",
-    },}}
-              error={errors.password} helperText={errors.password?.message}
-              />
-              <TextField color="none" type="text" id="fullName" label="Full Name" {...register('fullName')}
-              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
-      borderRadius: "50px",
-      overflow: "hidden",
-    },  "& .MuiInputLabel-root": {
-      color: "#583c26",
-    },}}
-              error={errors.fullName} helperText={errors.fullName?.message}
-              />
-              <TextField color="none" type="text" id="userName" label="User Name" {...register('userName')} 
-              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
-      borderRadius: "50px",
-      overflow: "hidden",
-    },  "& .MuiInputLabel-root": {
-      color: "#583c26",
-    },}}
-              error={errors.userName} helperText={errors.userName?.message}
-              />
-              <TextField color="none" type="text" id="phone" label="Phone" {...register('phoneNumber')}
-              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
-      borderRadius: "50px",
-      overflow: "hidden",
-    },  "& .MuiInputLabel-root": {
-      color: "#583c26",
-    },}}
-              error={errors.phoneNumber} helperText={errors.phoneNumber?.message}
-              />
-
+              <SharedTextField type={"email"} id={"email"} label={"Email"} error={errors.email} register={register('email')}/>
+              <SharedTextField type={"password"} id={"password"} label={"Password"} error={errors.password} register={register('password')}/>
+              <SharedTextField type={"text"} id={"fullName"} label={"Full Name"} error={errors.fullName} register={register('fullName')}/>
+              <SharedTextField type={"text"} id={"userName"} label={"User Name"} error={errors.userName} register={register('userName')}/>
+              <SharedTextField type={"text"} id={"phone"} label={"Phone"} error={errors.phoneNumber} register={register('phoneNumber')}/>
+              
               <Button type="submit" variant="contained"  endIcon={<SendIcon/>} sx={{backgroundColor:"#E47221", mt:2, borderRadius:50}}>sign up</Button>
            </Box>
         </Box> 
