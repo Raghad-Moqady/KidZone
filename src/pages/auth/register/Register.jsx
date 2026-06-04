@@ -9,6 +9,8 @@ import axios from "axios";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RegisterSchema } from "../../../validations/RegisterSchema.js";
 import Logo from "../../../components/logo/Logo.jsx";
+import mainBgImg from "../../../assets/imgs/BG23.png";
+import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 
 //  steps:
 /*
@@ -61,26 +63,20 @@ export default function Register() {
         }
        }
   }
+  // ,md:`url(${mainBgImg})`
   return (
     <> 
-      <Box className={`${style.ragisterPage}`}  display={"flex"}  alignItems={"center"} justifyContent={"center"} height={"91vh"}>
-        {/* img */}
-        <Box sx={{ width: "10rem" ,position:"absolute",bottom:"0",right:"0"}}>
-                <Box
-                  component="img"
-                  sx={{
-                    width: "100%"
-                  }}
-                  alt="zebra img"
-                  src={zebraImg}
-                ></Box>
-        </Box> 
-
+      <Box display={"flex"} alignItems={"center"}  minHeight={"100vh"} justifyContent={{xs:"center",lg:"end"}}
+       sx={{backgroundColor:"rgb(151, 128, 99)" ,backgroundImage:{
+       xs: `linear-gradient(rgb(151, 128, 99),rgb(151, 128, 99),rgba(151, 128, 99, 0.71),rgba(151, 128, 99, 0.48), rgba(151, 128, 99, 0)), url(${mainBgImg})`},backgroundPositionY:{xs:"-122px",sm:"170px",md:"-122px"},backgroundRepeat:"no-repeat"}}>
          {/* form card */}
          {/* ...register('email') === id */}
-        <Box sx={{width:"40%", py:5 , textAlign:"center",  border: 1 , borderColor:'#8B5E3C' , borderRadius: '16px',backgroundColor:"#FFFFFF" }}>
-            <Box display={"flex"}  justifyContent={"center"} > <Logo/> </Box>
-           <Typography variant='h5' component={"h1"} color="#8B5E3C" fontWeight={"bold"}>Create an Account</Typography>
+        <Box   sx={{ textAlign:"center",paddingY:{xs:7,sm:10},margin:2, width:{xs:"100%",sm:"80%",md:"60%",lg:"50%"},backgroundColor:{xs:"#ffffffcc",lg:"initial"}, borderTopLeftRadius:"20%", borderBottomRightRadius:"20%" }}>
+            <Box display={"flex"}  justifyContent={"center"} >
+               {/* <Logo/>  */}
+               <PersonAddAltOutlinedIcon sx={{color:{xs:"#8B5E3C",lg:"white"},border:1,borderRadius:"50%",width:"5rem",height:"5rem",p: 1}}/>
+            </Box>
+           <Typography variant='h4' component={"h1"} color={{xs:"#8B5E3C",lg:"white"}}  mt={1}>Sign Up</Typography>
            {/* to show server errors */}
            {/* stop hear */}
            {Object.keys(serverValidationErrors).length > 0 && (
@@ -98,39 +94,56 @@ export default function Register() {
             </Alert>
           )}
           
-           <Box component={"form"} onSubmit={handleSubmit(sendData)} display={"flex"} flexDirection={"column"} gap={2} alignItems={"center"} px={10}>
-              <TextField color="none" type="email" id="email" label="Email" {...register('email')} variant="standard" fullWidth
+           <Box component={"form"} onSubmit={handleSubmit(sendData)} display={"flex"} flexDirection={"column"} gap={2} alignItems={"center"} px={10} mt={3}>
+              <TextField  color="none" type="email" id="email" label="Email" {...register('email')} 
+              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
+      borderRadius: "50px",
+      overflow: "hidden",
+    },  "& .MuiInputLabel-root": {
+      color: "#5c3b22",
+    },}}
               error={errors.email} helperText={errors.email?.message}
               />
-              <TextField color="none" type="password" id="password" label="Password" {...register('password')} variant="standard"  fullWidth
+              <TextField color="none" type="password" id="password" label="Password" {...register('password')}
+              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
+      borderRadius: "50px",
+      overflow: "hidden",
+    },  "& .MuiInputLabel-root": {
+      color: "#583c26",
+    },}}
               error={errors.password} helperText={errors.password?.message}
               />
-              <TextField color="none" type="text" id="fullName" label="Full Name" {...register('fullName')}  variant="standard"  fullWidth 
+              <TextField color="none" type="text" id="fullName" label="Full Name" {...register('fullName')}
+              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
+      borderRadius: "50px",
+      overflow: "hidden",
+    },  "& .MuiInputLabel-root": {
+      color: "#583c26",
+    },}}
               error={errors.fullName} helperText={errors.fullName?.message}
               />
-              <TextField color="none" type="text" id="userName" label="User Name" {...register('userName')}  variant="standard"  fullWidth 
+              <TextField color="none" type="text" id="userName" label="User Name" {...register('userName')} 
+              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
+      borderRadius: "50px",
+      overflow: "hidden",
+    },  "& .MuiInputLabel-root": {
+      color: "#583c26",
+    },}}
               error={errors.userName} helperText={errors.userName?.message}
               />
-              <TextField color="none" type="text" id="phone" label="Phone" {...register('phoneNumber')}  variant="standard"  fullWidth 
+              <TextField color="none" type="text" id="phone" label="Phone" {...register('phoneNumber')}
+              variant="outlined" fullWidth sx={{"& fieldset": {borderRadius: "50px"},"& .MuiOutlinedInput-root": {
+      borderRadius: "50px",
+      overflow: "hidden",
+    },  "& .MuiInputLabel-root": {
+      color: "#583c26",
+    },}}
               error={errors.phoneNumber} helperText={errors.phoneNumber?.message}
               />
 
-              <Button type="submit" variant="contained"  endIcon={<SendIcon/>} sx={{backgroundColor:"#E47221", mt:2}}>sign up</Button>
+              <Button type="submit" variant="contained"  endIcon={<SendIcon/>} sx={{backgroundColor:"#E47221", mt:2, borderRadius:50}}>sign up</Button>
            </Box>
-        </Box>
-
-         {/* img
-        <Box sx={{ width: "8rem" ,position:"absolute",bottom:"15rem",right:"4rem"}}>
-                <Box
-                  component="img"
-                  sx={{
-                    width: "100%"
-                  }}
-                  alt="rainbow img"
-                  src={rainbowImg}
-                ></Box>
-        </Box> */}
-       
+        </Box> 
       </Box>
     </>
   );

@@ -1,10 +1,34 @@
-.ragisterPage {
+/* .ragisterPage {
 background-image: linear-gradient(
     
-    rgba(151, 128, 99, 0.584)
+    rgba(151, 128, 99, 0.443)
   ),
-  url("../../../assets/imgs/bg2.png");
-/* background-color: #8B5E3C ; */
-/* background-blend-mode: overlay; */
+  url("../../../assets/imgs/BG23.png");
+ 
+ background-size: contain;
+  min-height: 100vh;
+ background-repeat: no-repeat;
+ background-position-y: -60px;
+ 
+} */
 
-}
+/* .ragisterPage {
+  background-image: linear-gradient(
+      rgba(151, 128, 99, 0.443),
+      rgba(151, 128, 99, 0.443)
+    ),
+    url("../../../assets/imgs/BG23.png");
+  /* background-image:  url("../../../assets/imgs/BG23.png"); ; */
+  /* background-size: cover;
+  background-repeat: no-repeat; */
+    /* background-position-y: -290rem; */
+ 
+  /* border-radius: 100%; */
+  /* min-height: 100vh; */
+  /* width: 100vh; */
+      /* background-position-y: -130px; -122
+    background-repeat: no-repeat; */
+/* } */ 
+/* .whiteBg{
+background-color: white;
+} */

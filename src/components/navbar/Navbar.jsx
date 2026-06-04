@@ -41,11 +41,11 @@ const pages = [
 ];
 const settings = [
   {
-    name: "Login",
+    name: "Sign In",
     path: "/auth/login",
   },
   {
-    name: "Register",
+    name: "Sign Up",
     path: "/auth/register",
   },
   // {
@@ -75,7 +75,7 @@ function ResponsiveAppBar() {
   };
 
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#978063" }}>
+    <AppBar position="sticky" sx={{ backgroundColor: "#978063",boxShadow:"none" }}>
       <Container>
         <Toolbar disableGutters>
           {/* md screen*/}
