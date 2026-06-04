@@ -9,9 +9,11 @@ import '@fontsource/roboto/700.css';
 
 import './index.css'
 import { CssBaseline } from '@mui/material';
+import { ToastContainer } from 'react-toastify';
 
 createRoot(document.getElementById('root')).render( 
     <>
+    <ToastContainer/>
     <CssBaseline />
     <App />
     </> 

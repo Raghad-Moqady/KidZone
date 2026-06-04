@@ -1,15 +1,14 @@
 import { TextField } from "@mui/material";
 import React from "react";
 
-export default function SharedTextField({type,id,label,error,register}) {
+export default function SharedTextField({type,label,error,register}) {
   return (
     <>
       <TextField
         color="none"
         type={type}
-        id={id}
         label={label}
-        {...{register}}
+        {...register}
         variant="outlined"
         fullWidth
         sx={{
