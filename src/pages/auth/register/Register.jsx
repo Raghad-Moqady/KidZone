@@ -51,14 +51,18 @@ export default function Register() {
   const sendData=async(values)=>{
        try{
          const response= await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/Register`,values);
-         if(response.status==200){
+         if(response?.data?.success===true){
            SuccessToast("Account created successfully! Please confirm your email, then log in.");
            navigate("/auth/login");
          }
        }catch (err) {
+        
         //1.network error
         //2. 400: 1.validation response from asp 2.BaseResopnse 
         //3. 500 
+
+        //رد الباك اند بكون هون
+        // console.log(err.response.data);
             const response = err.response;
 
             // 1. No response (network error)
