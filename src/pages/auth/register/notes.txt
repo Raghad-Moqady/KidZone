@@ -225,3 +225,65 @@ New New
            </Box>
         </Box> 
       </Box>
+
+
+      =======================
+
+
+
+      catch (err) {
+  const response = err.response;
+
+  // 1. No response (network error)
+  if (!response) {
+    ErrorToast("Network error. Please try again.");
+    return;
+  }
+
+  // 2. Validation errors (400 غالبًا)
+  if (response.status === 400) {
+    const data = response.data;
+
+    if (data.errors) {
+      // errors object (field-based)
+      Object.values(data.errors).forEach((messages) => {
+        messages.forEach((msg) => ErrorToast(msg));
+      });
+    } else if (data.message) {
+      ErrorToast(data.message);
+    }
+
+    return;
+  }
+
+  // 3. Logic errors (404, business rules)
+  if (response.status === 404 || response.status === 409) {
+    ErrorToast(response.data.message || "Request failed");
+    return;
+  }
+
+  // 4. Server errors (500)
+  if (response.status >= 500) {
+    ErrorToast("Server error. Please try later.");
+    return;
+  }
+
+  // 5. fallback
+  ErrorToast("Something went wrong");
+}
+
+
+
+
+
+
+
+ 
+ 
+         
+        
+      
+         // لازم اعرف لي ما بيظهر شكل الرسالة اللي حددتها بالهاندلر بالباك .. لان حاليا بعطيني شكل جاي من االasp
+      
+       
+      
