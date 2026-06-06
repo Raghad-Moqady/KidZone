@@ -9,6 +9,7 @@ import AboutUs from "./pages/aboutUs/AboutUs.jsx";
 import Products from "./pages/products/Products.jsx";
 import Cart from "./pages/cart/Cart.jsx";
 import SendCode from "./pages/auth/sendCode/SendCode.jsx";
+import ResetPassword from './pages/auth/resetPassword/ResetPassword.jsx';
 
 const router = createBrowserRouter([
   //layout1
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path:"sendCode",
         element:<SendCode/>
+      },
+       {
+        path:"resetPassword",
+        element:<ResetPassword/>
       },
       {
         path :'*',

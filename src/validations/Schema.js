@@ -27,3 +27,7 @@ export const LoginSchema = yup.object({
   .matches(/\d/,"Password must contain at least one number")
   .matches(/[@#$&?!]/,"Password must contain at least one special character")
 });
+
+export const SendCodeSchema = yup.object({
+  email: yup.string().email("Invalid Email Format").required("Email Is Required")
+});

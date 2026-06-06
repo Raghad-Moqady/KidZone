@@ -164,7 +164,7 @@ export default function Login() {
                   pb: 1,
                 }}
               >
-                Sign In{" "}
+                Sign In
               </Button>
             ) : (
               <Button
@@ -185,7 +185,7 @@ export default function Login() {
                 }}
                 disabled={errors.email || errors.password}
               >
-                Sign In{" "}
+                Sign In
               </Button>
             )}
             
