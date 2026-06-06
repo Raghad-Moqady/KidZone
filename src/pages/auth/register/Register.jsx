@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import style from "./Register.module.css";
-import zebraImg from "../../../assets/imgs/zebra.webp";
-import rainbowImg from "../../../assets/imgs/rainbow.png";
 import { Box, Button, Card, TextField, Typography } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import { useForm } from "react-hook-form";
