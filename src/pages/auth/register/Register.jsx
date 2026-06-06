@@ -7,7 +7,7 @@ import SendIcon from '@mui/icons-material/Send';
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { yupResolver } from '@hookform/resolvers/yup';
-import { RegisterSchema } from "../../../validations/RegisterSchema.js";
+import { RegisterSchema } from "../../../validations/Schema.js";
 import Logo from "../../../components/logo/Logo.jsx";
 import mainBgImg from "../../../assets/imgs/BG23.png";
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
