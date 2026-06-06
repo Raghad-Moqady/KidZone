@@ -31,3 +31,16 @@ export const LoginSchema = yup.object({
 export const SendCodeSchema = yup.object({
   email: yup.string().email("Invalid Email Format").required("Email Is Required")
 });
+
+export const ResetPasswordSchema = yup.object({
+  newPassword: yup.string().required("Password Is Required")
+  .min(8,"New Password must be at least 8 characters")
+  .matches(/[A-Z]/,"New Password must contain at least one uppercase letter")
+  .matches(/[a-z]/,"New Password must contain at least one lowercase letter")
+  .matches(/\d/,"New Password must contain at least one number")
+  .matches(/[@#$&?!]/,"New Password must contain at least one special character"),
+
+  code: yup.string().required("Code is required").length(4, "Code must be 4 digits")
+  .matches(/^\d+$/, "Code must contain numbers only"),
+
+});
