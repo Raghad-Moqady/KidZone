@@ -8,6 +8,7 @@ import NotFound from "./pages/notFound/NotFound.jsx";
 import AboutUs from "./pages/aboutUs/AboutUs.jsx";
 import Products from "./pages/products/Products.jsx";
 import Cart from "./pages/cart/Cart.jsx";
+import SendCode from "./pages/auth/sendCode/SendCode.jsx";
 
 const router = createBrowserRouter([
   //layout1
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path:"register",
         element:<Register/>
+      },
+      {
+        path:"sendCode",
+        element:<SendCode/>
       },
       {
         path :'*',

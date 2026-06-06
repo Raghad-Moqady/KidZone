@@ -1,6 +1,6 @@
 import React from "react";
 import style from "./Login.module.css";
-import { Box, Button, Card, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, Link, TextField, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -13,6 +13,7 @@ import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../../validations/Schema.js";
 import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
+import {Link as RouterLink } from "react-router-dom";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -146,6 +147,7 @@ export default function Login() {
               error={errors.password}
               register={register("password")}
             />
+           <Link component={RouterLink} to={'/auth/sendCode'} fontWeight="bold" color="#8B5E3C"> Forgot Password? </Link>
 
             {isSubmitting ? (
               <Button
@@ -186,6 +188,7 @@ export default function Login() {
                 Sign In{" "}
               </Button>
             )}
+            
           </Box>
         </Box>
       </Box>

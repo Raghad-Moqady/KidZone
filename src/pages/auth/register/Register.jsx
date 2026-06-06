@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import style from "./Register.module.css";
-import { Box, Button, Card, TextField, Typography } from "@mui/material";
+import { Box, Button, Card, Link, TextField, Typography } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import { useForm } from "react-hook-form";
 import axios from "axios";
@@ -13,6 +13,7 @@ import SharedTextField from "../../../components/auth/sharedTextField/SharedText
 import SharedTitle from "../../../components/auth/sharedTitle/SharedTitle.jsx";
 import { useNavigate } from "react-router-dom";
 import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
+import {Link as RouterLink } from "react-router-dom";
 
 //  steps:
 /*
@@ -144,7 +145,8 @@ export default function Register() {
                 <SharedTextField type={"text"} label={"Full Name"} error={errors.fullName} register={register('fullName')}/>
                 <SharedTextField type={"text"} label={"User Name"} error={errors.userName} register={register('userName')}/>
                 <SharedTextField type={"text"} label={"Phone"} error={errors.phoneNumber} register={register('phoneNumber')}/>
- 
+                <Link component={RouterLink} to={'/auth/login'} fontWeight="bold" color="#8B5E3C"> Login </Link>
+
                 {isSubmitting? 
                  <Button loading variant="outlined" loadingPosition="end" endIcon={<SendIcon/>}
                  sx={{backgroundColor:"#7445247a", mt:2, borderRadius:50,px:8,pt:1,pb:1}}
