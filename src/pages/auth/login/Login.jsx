@@ -3,7 +3,6 @@ import style from "./Login.module.css";
 import { Box, Button, Card, Link, TextField, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import mainBgImg from "../../../assets/imgs/BG23.png";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
@@ -14,6 +13,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../../validations/Schema.js";
 import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
 import {Link as RouterLink } from "react-router-dom";
+import axiosInstance from "../../../Api/axiosInstance.js";
 
 export default function Login() {
   const navigate = useNavigate();
@@ -27,10 +27,7 @@ export default function Login() {
 
   const sendData = async (values) => {
     try {
-      const response = await axios.post(
-        `${import.meta.env.VITE_BURL}/auth/Account/Login`,
-        values,
-      );
+      const response = await axiosInstance.post(`/auth/Account/Login`,values,);
       // console.log(response);
       if (response.status === 200) {
         localStorage.setItem("token", response.data.accessToken);

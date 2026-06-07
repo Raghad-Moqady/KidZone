@@ -8,9 +8,9 @@ import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { SendCodeSchema } from '../../../validations/Schema.js';
 import mainBgImg from "../../../assets/imgs/BG23.png";
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ErrorToast, SuccessToast } from '../../../toast/Toast.js';
+import axiosInstance from '../../../Api/axiosInstance.js';
 
 export default function SendCode() {
     const navigate=useNavigate();
@@ -20,7 +20,7 @@ export default function SendCode() {
 
     const sendData=async(values)=>{
           try{
-          const response = await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/SendCode`,values);
+          const response = await axiosInstance.post(`/auth/Account/SendCode`,values);
           if(response.status===200){
                localStorage.setItem("email",values.email);
                SuccessToast(response.data.message);

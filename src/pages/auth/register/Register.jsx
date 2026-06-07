@@ -3,7 +3,6 @@ import style from "./Register.module.css";
 import { Box, Button, Card, Link, TextField, Typography } from "@mui/material";
 import SendIcon from '@mui/icons-material/Send';
 import { useForm } from "react-hook-form";
-import axios from "axios";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { RegisterSchema } from "../../../validations/Schema.js";
 import Logo from "../../../components/logo/Logo.jsx";
@@ -14,6 +13,7 @@ import SharedTitle from "../../../components/auth/sharedTitle/SharedTitle.jsx";
 import { useNavigate } from "react-router-dom";
 import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
 import {Link as RouterLink } from "react-router-dom";
+import axiosInstance from "../../../Api/axiosInstance.js";
 
 //  steps:
 /*
@@ -49,7 +49,7 @@ export default function Register() {
 
   const sendData=async(values)=>{
        try{
-         const response= await axios.post(`${import.meta.env.VITE_BURL}/auth/Account/Register`,values);
+         const response= await axiosInstance.post(`/auth/Account/Register`,values);
          if(response?.data?.success===true){
            SuccessToast("Account created successfully! Please confirm your email, then log in.");
            navigate("/auth/login");

@@ -8,9 +8,9 @@ import SendIcon  from '@mui/icons-material/Send';
 import mainBgImg from "../../../assets/imgs/BG23.png";
 import { yupResolver } from '@hookform/resolvers/yup';
 import { ResetPasswordSchema } from '../../../validations/Schema.js';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ErrorToast, SuccessToast } from '../../../toast/Toast.js';
+import axiosInstance from '../../../Api/axiosInstance.js';
 
 export default function ResetPassword() {
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ export default function ResetPassword() {
     const email= localStorage.getItem("email");
     const payload={email,...values};
     try{
-      const response= await axios.patch(`${import.meta.env.VITE_BURL}/auth/Account/ResetPassword`,payload);
+      const response= await axiosInstance.patch(`/auth/Account/ResetPassword`,payload);
       if(response?.data?.success===true){
          SuccessToast(response?.data?.message);
          navigate("/auth/login");
