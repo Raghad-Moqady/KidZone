@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 import React from "react";
 import kidZonelogoForDarkBg from '../../assets/imgs/logo.png'
-import kidZonelogoForLightBg from '../../assets/imgs/logo2.png'
+import kidZonelogoForLightBg from '../../assets/imgs/Logo2.png'
 
 
 export default function Logo({width,theme="darkBg"}) {
