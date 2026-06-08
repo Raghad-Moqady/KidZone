@@ -1,18 +1,20 @@
 import { Box } from "@mui/material";
 import React from "react";
-import kidZonelogo from '../../assets/imgs/logo.png'
+import kidZonelogoForDarkBg from '../../assets/imgs/logo.png'
+import kidZonelogoForLightBg from '../../assets/imgs/logo2.png'
 
-export default function Logo() {
+
+export default function Logo({width,theme="darkBg"}) {
   return (
     <>
-     <Box sx={{ width: "9rem" }}>
+     <Box sx={{ width: width }}>
         <Box
           component="img"
           sx={{
             width: "100%"
           }}
           alt="kidZone Logo"
-          src={kidZonelogo}
+          src={theme ==="lightBg"?kidZonelogoForLightBg :kidZonelogoForDarkBg}
         ></Box>
    </Box>
     </>

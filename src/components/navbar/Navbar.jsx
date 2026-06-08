@@ -85,7 +85,7 @@ function ResponsiveAppBar() {
             }}
           >
             {/* logo */}
-            <Logo />
+            <Logo width={"9rem"} />
           </Box>
 
           {/* xs screen */}
@@ -138,7 +138,7 @@ function ResponsiveAppBar() {
             }}
           >
             {/* logo */}
-            <Logo />
+            <Logo width={"9rem"} />
           </Box>
 
           {/* md screen*/}
