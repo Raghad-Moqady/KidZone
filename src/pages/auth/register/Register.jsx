@@ -149,11 +149,11 @@ export default function Register() {
 
                 {isSubmitting? 
                  <Button loading variant="outlined" loadingPosition="end" endIcon={<SendIcon/>}
-                 sx={{backgroundColor:"#7445247a", mt:2, borderRadius:50,px:8,pt:1,pb:1}}
+                 sx={{backgroundColor:"#7445247a", mt:2, borderRadius:50,boxShadow:0,px:8,pt:1,pb:1}}
                  >Sign Up </Button>
                 :
                   <Button type="submit" variant="contained"  endIcon={<SendIcon/>}
-                 sx={{backgroundColor:"#E47221", mt:2, borderRadius:50,px:8,pt:1,pb:1,
+                 sx={{backgroundColor:"#E47221", mt:2, borderRadius:50,boxShadow:0,px:8,pt:1,pb:1,
                   "&.Mui-disabled": {
                       backgroundColor: "#7445247a",
                       color: "#fff"

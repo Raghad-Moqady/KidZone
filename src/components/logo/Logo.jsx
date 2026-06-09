@@ -7,7 +7,7 @@ import kidZonelogoForLightBg from '../../assets/imgs/Logo2.png'
 export default function Logo({width,theme="darkBg"}) {
   return (
     <>
-     <Box sx={{ width: width }}>
+   <Box sx={{ width: width }}>
         <Box
           component="img"
           sx={{
