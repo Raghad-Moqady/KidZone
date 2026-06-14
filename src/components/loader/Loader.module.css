@@ -1,0 +1,42 @@
+.loaderPage{
+   position: fixed;
+  inset: 0; /* أفضل من top/right/bottom/left */
+  background: #F7EFE8;
+  z-index: 99999; /* أعلى من navbar */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+ }
+ 
+ .loader{
+      display: block;
+      position: absolute;
+      top: 0;
+      height: 4px;
+      width: 100%;
+     overflow: hidden;
+    }
+    .loader::after {
+      content: '';
+      width: 40%;
+      height: 100%;
+      background: #e47221bc;
+      position: absolute;
+      top: 0;
+      left: 0;
+      box-sizing: border-box;
+      animation: animloader 2s linear infinite;
+    }
+    
+    @keyframes animloader {
+      0% {
+        left: 0;
+        transform: translateX(-100%);
+      }
+      100% {
+        left: 100%;
+        transform: translateX(0%);
+      }
+    }
+    

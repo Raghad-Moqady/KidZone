@@ -11,7 +11,7 @@ export default function CategoryCard({content}) {
           paddingX: 6,
           paddingY: 3,
           borderRadius: 50,
-          backgroundColor: "#EFE1D3",
+          backgroundColor: "#e6cd3b61",
           boxShadow: 0,
           color: "#8B5E3C",
           fontSize: "24px",
@@ -19,7 +19,7 @@ export default function CategoryCard({content}) {
           textAlign:'center',
 
           "&:hover": {
-            backgroundColor: "#8b5e3c52",
+            backgroundColor: "#e6cc3bbc",
             cursor: "pointer",
             transform: "scale(1.1)",
           },
