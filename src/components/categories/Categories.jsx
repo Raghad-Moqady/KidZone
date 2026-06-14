@@ -1,13 +1,13 @@
 import { Box, Card, Container} from '@mui/material'
 import React, { useEffect, useState } from 'react'
-import SectionTitle from '../shared/SectionTitle'
+import SectionTitle from '../shared/SectionTitle.jsx'
 import sunIcon from '../../assets/imgs/sunIcon.svg'
 import Grid from '@mui/material/Grid';
 import Item from '@mui/material/Grid';
-import CategoryCard from '../shared/CategoryCard';
+import CategoryCard from '../shared/CategoryCard.jsx';
 import axiosInstance from './../../Api/axiosInstance';
 import Loader from '../loader/Loader.jsx';
-import ErrorAlert from '../alert/errorAlert.jsx';
+import ErrorAlert from './../alert/ErrorAlert.jsx';
 
 
 
