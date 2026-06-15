@@ -8,32 +8,25 @@ import CategoryCard from '../shared/CategoryCard.jsx';
 import axiosInstance from './../../Api/axiosInstance';
 import Loader from '../loader/Loader.jsx';
 import ErrorAlert from './../alert/ErrorAlert.jsx';
+import { useQuery } from '@tanstack/react-query';
 
 
 
 export default function Categories() {
-const [categories,setCategories]= useState([]);
-const [serverError,setServerError]=useState(null);
-const [loader,setLoader]=useState(false);
-  
-
+ 
 const getCategories=async()=>{
-     try{
-      setLoader(true);
-      const response= await axiosInstance.get(`/Categories?lang=en`);
-      setCategories(response.data.categories);
-     }catch(err){
-      setServerError(err.message);
-     }finally{
-      setLoader(false);
-     }
+    const response= await axiosInstance.get(`/Categories?lang=en`);
+    return response.data.categories;
 }
 
- useEffect(()=>{
-    getCategories();
- },[]);
+const {isLoading,isError,data} =useQuery({
+  queryKey:['categories'],
+  staleTime:5 * 60 * 1000,
+  queryFn: getCategories
+})
 
- if(loader){
+
+ if(isLoading){
   return <Loader/>;
  }
   return (
@@ -52,16 +45,16 @@ const getCategories=async()=>{
             ></Box>
           </Box>
         </SectionTitle>
-        {serverError?
-        <ErrorAlert message={serverError}/>
+        {isError?
+        <ErrorAlert message={'Error'}/>
         :
           <Box className="categoriesBox">
           <Grid container spacing={3}>
-            {categories.map(category=>
-            <Grid key={category.id} size={{ xs: 12,sm:6,md:4,lg:3}} sx={{ overflow: "hidden", borderRadius: 50 }}>
+            {data?.map(category=>
+            <Grid key={category?.id} size={{ xs: 12,sm:6,md:4,lg:3}} sx={{ overflow: "hidden", borderRadius: 50 }}>
               {/* component */}
               <Item>
-                <CategoryCard content={category.name} />
+                <CategoryCard content={category?.name} />
               </Item>
             </Grid> 
 
