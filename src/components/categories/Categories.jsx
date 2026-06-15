@@ -9,22 +9,13 @@ import axiosInstance from './../../Api/axiosInstance';
 import Loader from '../loader/Loader.jsx';
 import ErrorAlert from './../alert/ErrorAlert.jsx';
 import { useQuery } from '@tanstack/react-query';
+import useCategories from '../../hooks/useCategories.js';
 
 
 
 export default function Categories() {
  
-const getCategories=async()=>{
-    const response= await axiosInstance.get(`/Categories?lang=en`);
-    return response.data.categories;
-}
-
-const {isLoading,isError,data} =useQuery({
-  queryKey:['categories'],
-  staleTime:5 * 60 * 1000,
-  queryFn: getCategories
-})
-
+const {isLoading,isError,data} = useCategories();
 
  if(isLoading){
   return <Loader/>;
