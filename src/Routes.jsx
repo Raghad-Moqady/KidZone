@@ -10,7 +10,8 @@ import Products from "./pages/products/Products.jsx";
 import Cart from "./pages/cart/Cart.jsx";
 import SendCode from "./pages/auth/sendCode/SendCode.jsx";
 import ResetPassword from './pages/auth/resetPassword/ResetPassword.jsx';
-
+import Profile from "./pages/profile/Profile.jsx";
+ 
 const router = createBrowserRouter([
   //layout1
   {
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
       {
         path:'cart',
         element:<Cart/>
+      },
+      {
+        path:'profile',
+        element:<Profile/>
       },
       {
         path :'*',

@@ -20,6 +20,9 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 
 import style from "./Navbar.module.css";
 import router from "../../Routes.jsx";
+import { useContext } from "react";
+import { AuthContext } from './../../context/AuthContext.jsx';
+import LogoutIcon from '@mui/icons-material/Logout';
 
 const pages = [
   {
@@ -39,7 +42,7 @@ const pages = [
     path: "/cart",
   },
 ];
-const settings = [
+const settingsForUnLoggedUsers = [
   {
     name: "Sign In",
     path: "/auth/login",
@@ -47,17 +50,26 @@ const settings = [
   {
     name: "Sign Up",
     path: "/auth/register",
-  },
-  // {
-  //   name: 'Logout',
-  //   path:''
-  // }
+  } 
 ];
+const settingsForLoggedUsers = [
+  {
+    name:"Profile",
+    path:'/profile'
+  },
+  {
+    name:"Logout",
+    path:'/auth/login'
+  }
+];
+
 // const settings = ['Profile', 'Account', 'Dashboard','','', ''];
 
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const {userAccessToken,logout}=useContext(AuthContext);
+ 
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -74,11 +86,16 @@ function ResponsiveAppBar() {
     setAnchorElUser(null);
   };
 
+  const handleLogout = () => {
+    handleCloseUserMenu();
+    logout();
+  };
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "#978063",boxShadow:"none" }}>
       <Container>
         <Toolbar disableGutters>
           {/* md screen*/}
+          {/* logo */}
           <Box
             sx={{
               display: { xs: "none", md: "flex" },
@@ -117,6 +134,7 @@ function ResponsiveAppBar() {
               sx={{ display: { xs: "block", md: "none" } }}
             >
               {pages.map((page) => (
+                userAccessToken?
                 <MenuItem
                   component={RouterLink}
                   to={page.path}
@@ -127,10 +145,22 @@ function ResponsiveAppBar() {
                     {page.name}
                   </Typography>
                 </MenuItem>
+                :
+                page.name !="Cart"?<MenuItem
+                  component={RouterLink}
+                  to={page.path}
+                  key={page.name}
+                  onClick={handleCloseNavMenu}
+                >
+                  <Typography sx={{color:"#8B5E3C" }}>
+                    {page.name}
+                  </Typography>
+                </MenuItem>:null
               ))}
             </Menu>
           </Box>
-
+ 
+          {/* logo  */}
           <Box
             sx={{
               display: { xs: "flex", md: "none" },
@@ -151,7 +181,8 @@ function ResponsiveAppBar() {
             }}
           >
             {pages.map((page) => (
-              <Link
+              userAccessToken?
+                  <Link
                 component={RouterLink}
                 to={page.path}
                 underline="none"
@@ -162,6 +193,19 @@ function ResponsiveAppBar() {
                 {page.name}
                 {/* {page.name=='Cart'? 3:''} */}
               </Link>
+              :
+              page.name!="Cart"?
+                  <Link
+                component={RouterLink}
+                to={page.path}
+                underline="none"
+                key={page.name}
+                onClick={handleCloseNavMenu}
+                sx={{ my: 2, color: "white", display: "block" }}
+              >
+                {page.name}
+               </Link> :null
+          
             ))}
           </Box>
 
@@ -169,11 +213,16 @@ function ResponsiveAppBar() {
           <Box>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                {/* للشخص المسجل دخوله */}
-                {/* <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" /> */}
+                {userAccessToken==null?
+                //  للشخص الزائر 
+                // <PersonIcon fontSize="large" sx={{ color: "#ffffff" }} />
+                <Avatar sx={{ bgcolor: '#E47221' }} src="/broken-image.jpg" />
+                :
+                // للشخص المسجل دخوله
+                 <Avatar sx={{ bgcolor: '#E47221' }} alt="Raghad" src="/static/images/avatar/2.jpg" />  
 
-                {/* للشخص الزائر */}
-                <PersonIcon fontSize="large" sx={{ color: "#ffffff" }} />
+                }
+
               </IconButton>
             </Tooltip>
             <Menu
@@ -192,7 +241,19 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              {settings.map((setting) => (
+              {(userAccessToken?settingsForLoggedUsers:settingsForUnLoggedUsers).map((setting) => (
+                setting.name=="Logout"?
+                <MenuItem
+                  component={RouterLink}
+                  to={setting.path}
+                  key={setting.name}
+                  onClick={handleLogout }
+                >
+                  <Typography sx={{color:"#8B5E3C" }}  >
+                    {setting.name} <LogoutIcon sx={{paddingTop:1}} />
+                  </Typography>
+                </MenuItem>
+                :
                 <MenuItem
                   component={RouterLink}
                   to={setting.path}

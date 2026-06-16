@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import style from "./Login.module.css";
 import { Box, Button, Card, Link, TextField, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
@@ -14,8 +14,10 @@ import { LoginSchema } from "../../../validations/Schema.js";
 import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
 import {Link as RouterLink } from "react-router-dom";
 import axiosInstance from "../../../Api/axiosInstance.js";
+import { AuthContext } from "../../../context/AuthContext.jsx";
 
 export default function Login() {
+  const {setUserAccessToken}= useContext(AuthContext);
   const navigate = useNavigate();
   const {
     register,
@@ -30,7 +32,8 @@ export default function Login() {
       const response = await axiosInstance.post(`/auth/Account/Login`,values,);
       // console.log(response);
       if (response.status === 200) {
-        localStorage.setItem("token", response.data.accessToken);
+        localStorage.setItem("userAccessToken", response.data.accessToken);
+        setUserAccessToken(response.data.accessToken);
         SuccessToast("Logged in successfully");
         navigate("/");
       }
