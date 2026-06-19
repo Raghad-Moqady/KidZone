@@ -1,9 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import style from "./Login.module.css";
 import { Box, Button, Card, Link, TextField, Typography } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import mainBgImg from "../../../assets/imgs/BG23.png";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import SharedTitle from "../../../components/auth/sharedTitle/SharedTitle.jsx";
@@ -11,11 +10,7 @@ import SharedTextField from "../../../components/auth/sharedTextField/SharedText
 import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LoginSchema } from "../../../validations/Schema.js";
-import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
 import {Link as RouterLink } from "react-router-dom";
-import axiosInstance from "../../../Api/axiosInstance.js";
-import { AuthContext } from "../../../context/AuthContext.jsx";
-import {useMutation} from '@tanstack/react-query';
 import useLogin from "../../../hooks/useLogin.js";
 
 export default function Login() {

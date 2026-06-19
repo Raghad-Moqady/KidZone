@@ -10,11 +10,7 @@ import mainBgImg from "../../../assets/imgs/BG23.png";
 import PersonAddAltOutlinedIcon from '@mui/icons-material/PersonAddAltOutlined';
 import SharedTextField from "../../../components/auth/sharedTextField/SharedTextField.jsx";
 import SharedTitle from "../../../components/auth/sharedTitle/SharedTitle.jsx";
-import { useNavigate } from "react-router-dom";
-import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
 import {Link as RouterLink } from "react-router-dom";
-import axiosInstance from "../../../Api/axiosInstance.js";
-import { useMutation } from "@tanstack/react-query";
 import useRegister from "../../../hooks/useRegister.js";
 
 //  steps:
@@ -49,7 +45,7 @@ export default function Register() {
   });
 
  const {registerMutation}=useRegister();
- 
+
   const sendData=async(values)=>{
        await registerMutation.mutateAsync(values);
   };
