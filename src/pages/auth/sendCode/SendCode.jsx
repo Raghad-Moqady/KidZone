@@ -1,36 +1,41 @@
-import { Box, Button } from '@mui/material'
-import React from 'react'
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import SharedTitle from '../../../components/auth/sharedTitle/SharedTitle.jsx';
-import SharedTextField from '../../../components/auth/sharedTextField/SharedTextField.jsx';
-import SendIcon  from '@mui/icons-material/Send';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import { SendCodeSchema } from '../../../validations/Schema.js';
+import { Box, Button } from "@mui/material";
+import React from "react";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import SharedTitle from "../../../components/auth/sharedTitle/SharedTitle.jsx";
+import SharedTextField from "../../../components/auth/sharedTextField/SharedTextField.jsx";
+import SendIcon from "@mui/icons-material/Send";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { SendCodeSchema } from "../../../validations/Schema.js";
 import mainBgImg from "../../../assets/imgs/BG23.png";
-import { useNavigate } from 'react-router-dom';
-import { ErrorToast, SuccessToast } from '../../../toast/Toast.js';
-import axiosInstance from '../../../Api/axiosInstance.js';
+import { useNavigate } from "react-router-dom";
+import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
+import axiosInstance from "../../../Api/axiosInstance.js";
+import { useMutation } from "@tanstack/react-query";
 
 export default function SendCode() {
-    const navigate=useNavigate();
-    const {register,handleSubmit,formState:{errors,isSubmitting}}= useForm({
-        resolver:yupResolver(SendCodeSchema),
-    });
+  const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm({
+    resolver: yupResolver(SendCodeSchema),
+  });
 
-    const sendData=async(values)=>{
-          try{
-          const response = await axiosInstance.post(`/auth/Account/SendCode`,values);
-          if(response.status===200){
-               localStorage.setItem("email",values.email);
-               SuccessToast(response.data.message);
-               navigate("/auth/resetPassword");
-          }
-          }catch(err){
-       //1.network error
+  //  Mutation
+  const SendCodeMutation = useMutation({
+    mutationFn: async (values) =>
+      await axiosInstance.post(`/auth/Account/SendCode`, values),
+    onSuccess: (response,values) => {
+      localStorage.setItem("email", values.email);
+      SuccessToast(response.data.message);
+      navigate("/auth/resetPassword");
+    },
+    onError: (err) => {
+      //1.network error
       //2. 400: 1.validation response from asp 2.BaseResopnse
       //3. 500
- 
       const response = err.response;
 
       // 1. No response (network error)
@@ -42,11 +47,11 @@ export default function SendCode() {
       // 2. Validation & logic errors (400)
       if (response.status === 400) {
         const data = response.data;
-         //validation: false
+        //validation: false
         //logic: true
         if (data?.unexpectedErrorFlag == false) {
           //logic:
-         ErrorToast(data.message);
+          ErrorToast(data.message);
           return;
         } else {
           //validation:
@@ -68,10 +73,14 @@ export default function SendCode() {
 
       // fallback
       ErrorToast("Something went wrong");
-          }
-    }
+    },
+  });
+
+  const sendData = async (values) => {
+    await SendCodeMutation.mutateAsync(values);
+  };
   return (
-      <>
+    <>
       <Box
         display={"flex"}
         alignItems={"center"}
@@ -128,7 +137,7 @@ export default function SendCode() {
               error={errors.email}
               register={register("email")}
             />
-             
+
             {isSubmitting ? (
               <Button
                 loading
@@ -139,7 +148,7 @@ export default function SendCode() {
                   backgroundColor: "#7445247a",
                   mt: 2,
                   borderRadius: 50,
-                  boxShadow:0,
+                  boxShadow: 0,
                   px: 8,
                   pt: 1,
                   pb: 1,
@@ -156,7 +165,7 @@ export default function SendCode() {
                   backgroundColor: "#E47221",
                   mt: 2,
                   borderRadius: 50,
-                  boxShadow:0,
+                  boxShadow: 0,
                   px: 8,
                   pt: 1,
                   pb: 1,
@@ -170,10 +179,9 @@ export default function SendCode() {
                 Send Code
               </Button>
             )}
-            
           </Box>
         </Box>
       </Box>
     </>
-  )
+  );
 }
