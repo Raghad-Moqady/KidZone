@@ -15,6 +15,7 @@ import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
 import {Link as RouterLink } from "react-router-dom";
 import axiosInstance from "../../../Api/axiosInstance.js";
 import { AuthContext } from "../../../context/AuthContext.jsx";
+import {useMutation} from '@tanstack/react-query';
 
 export default function Login() {
   const {setUserAccessToken}= useContext(AuthContext);
@@ -27,17 +28,16 @@ export default function Login() {
     resolver: yupResolver(LoginSchema),
   });
 
-  const sendData = async (values) => {
-    try {
-      const response = await axiosInstance.post(`/auth/Account/Login`,values,);
-      // console.log(response);
-      if (response.status === 200) {
+  //Mutation : 
+  const loginMutation = useMutation({
+    mutationFn:async values=>await axiosInstance.post(`/auth/Account/Login`,values),
+    onSuccess:(response)=>{
         localStorage.setItem("userAccessToken", response.data.accessToken);
         setUserAccessToken(response.data.accessToken);
         SuccessToast("Logged in successfully");
         navigate("/");
-      }
-    } catch (err) {
+    },
+    onError:(err)=>{
       //1.network error
       //2. 400: 1.validation response from asp 2.BaseResopnse
       //3. 500
@@ -81,7 +81,11 @@ export default function Login() {
 
       // fallback
       ErrorToast("Something went wrong");
-    }
+    },
+  });
+
+  const sendData = async (values) => {
+   await loginMutation.mutateAsync(values);
   };
   return (
     <>
