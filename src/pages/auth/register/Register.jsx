@@ -14,6 +14,7 @@ import { useNavigate } from "react-router-dom";
 import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
 import {Link as RouterLink } from "react-router-dom";
 import axiosInstance from "../../../Api/axiosInstance.js";
+import { useMutation } from "@tanstack/react-query";
 
 //  steps:
 /*
@@ -47,15 +48,14 @@ export default function Register() {
     mode: "onBlur"
   });
 
-  const sendData=async(values)=>{
-       try{
-         const response= await axiosInstance.post(`/auth/Account/Register`,values);
-         if(response?.data?.success===true){
-           SuccessToast("Account created successfully! Please confirm your email, then log in.");
-           navigate("/auth/login");
-         }
-       }catch (err) {
-        
+  // Mutation 
+  const registerMutation = useMutation({
+      mutationFn: async values=>await axiosInstance.post(`/auth/Account/Register`,values),
+      onSuccess: (response)=>{
+        SuccessToast("Account created successfully! Please confirm your email, then log in.");
+        navigate("/auth/login");
+      },
+      onError:(err)=>{ 
         //1.network error
         //2. 400: 1.validation response from asp 2.BaseResopnse 
         //3. 500 
@@ -123,8 +123,12 @@ export default function Register() {
             
             // fallback
             ErrorToast("Something went wrong");
-          }
-  }
+      }
+  });
+  const sendData=async(values)=>{
+       await registerMutation.mutateAsync(values);
+  };
+  
   return (
     <> 
       <Box display={"flex"} alignItems={"center"}  minHeight={"100vh"} justifyContent={{xs:"center",lg:"end"}}
