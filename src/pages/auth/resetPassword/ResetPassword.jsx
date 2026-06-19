@@ -8,13 +8,9 @@ import SendIcon from "@mui/icons-material/Send";
 import mainBgImg from "../../../assets/imgs/BG23.png";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ResetPasswordSchema } from "../../../validations/Schema.js";
-import { useNavigate } from "react-router-dom";
-import { ErrorToast, SuccessToast } from "../../../toast/Toast.js";
-import axiosInstance from "../../../Api/axiosInstance.js";
-import { useMutation } from "@tanstack/react-query";
+import useResetPassword from "../../../hooks/useResetPassword.js";
 
 export default function ResetPassword() {
-  const navigate = useNavigate();
   const {
     register,
     handleSubmit,
@@ -22,64 +18,9 @@ export default function ResetPassword() {
   } = useForm({
     resolver: yupResolver(ResetPasswordSchema),
   });
- 
 
-  // Mutation
-  const ResetPasswordMutation = useMutation({
-    mutationFn: async values =>{
-      const email = localStorage.getItem("email");
-      const payload = { email, ...values };
-      return  await axiosInstance.patch(`/auth/Account/ResetPassword`, payload);
-    },
-    onSuccess: (response) => {
-      SuccessToast(response?.data?.message);
-      navigate("/auth/login");
-    },
-    onError: (err) => {
-      //1.network error
-      //2. 400: 1.validation response from asp 2.BaseResopnse
-      //3. 500
-
-      const response = err.response;
-
-      // 1. No response (network error)
-      if (!response) {
-        ErrorToast("Network error. Please try again.");
-        return;
-      }
-
-      // 2. Validation & logic errors (400)
-      if (response.status === 400) {
-        const data = response.data;
-        //validation: false
-        //logic: true
-        if (data?.unexpectedErrorFlag == false) {
-          //logic:
-          ErrorToast(data.message);
-          return;
-        } else {
-          //validation:
-          if (data?.errors) {
-            // errors object (field-based)
-            Object.values(data.errors).forEach((messages) => {
-              messages.forEach((msg) => ErrorToast(msg));
-            });
-          }
-          return;
-        }
-      }
-
-      // 3. Server errors (500)
-      if (response.status >= 500) {
-        ErrorToast("Server error. Please try later.");
-        return;
-      }
-
-      // fallback
-      ErrorToast("Something went wrong");
-    },
-  });
-
+  const {ResetPasswordMutation}=useResetPassword();
+  
   const sendData = async (values) => {
     await ResetPasswordMutation.mutateAsync(values);
   };
