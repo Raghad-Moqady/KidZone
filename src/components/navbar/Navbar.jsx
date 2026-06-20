@@ -23,7 +23,6 @@ import router from "../../Routes.jsx";
 import { useContext } from "react";
 import { AuthContext } from './../../context/AuthContext.jsx';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useCounterStore } from "../../store/useCounterStore.js";
 
 const pages = [
   {
@@ -91,15 +90,9 @@ function ResponsiveAppBar() {
     handleCloseUserMenu();
     logout();
   };
-
-  const {counter,increase,decrease}=useCounterStore();
   return (
     <AppBar position="sticky" sx={{ backgroundColor: "#978063",boxShadow:"none" }}>
       <Container>
-        <button onClick={()=>increase(2)}>increase</button>
-        <button onClick={decrease}>decrease</button>
-
-        {counter}
         <Toolbar disableGutters>
           {/* md screen*/}
           {/* logo */}
