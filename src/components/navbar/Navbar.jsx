@@ -17,12 +17,10 @@ import { Card, Link } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 import PersonIcon from "@mui/icons-material/Person";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-
 import style from "./Navbar.module.css";
 import router from "../../Routes.jsx";
-import { useContext } from "react";
-import { AuthContext } from './../../context/AuthContext.jsx';
 import LogoutIcon from '@mui/icons-material/Logout';
+import useAuthStore from "../../store/authStore.js";
 
 const pages = [
   {
@@ -68,8 +66,10 @@ const settingsForLoggedUsers = [
 function ResponsiveAppBar() {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-  const {userAccessToken,logout}=useContext(AuthContext);
- 
+
+  //from zustand auth store
+  const userAccessToken = useAuthStore(state=> state.userAccessToken);
+  const logout= useAuthStore(state=>state.logout);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);

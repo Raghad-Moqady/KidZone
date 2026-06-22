@@ -1,20 +1,17 @@
 import { useMutation } from "@tanstack/react-query";
-import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import axiosInstance from "../Api/axiosInstance";
 import { ErrorToast, SuccessToast } from "../toast/Toast";
-import { AuthContext } from "../context/AuthContext";
-
+import useAuthStore from "../store/authStore";
+ 
 export default function useLogin(){
-  const {setUserAccessToken}= useContext(AuthContext);
-
+  const setUserAccessToken = useAuthStore(state=> state.setUserAccessToken);
   const navigate = useNavigate();
 
   //Mutation : 
   const loginMutation = useMutation({
     mutationFn:async values=>await axiosInstance.post(`/auth/Account/Login`,values),
     onSuccess:(response)=>{
-        localStorage.setItem("userAccessToken", response.data.accessToken);
         setUserAccessToken(response.data.accessToken);
         SuccessToast("Logged in successfully");
         navigate("/");
