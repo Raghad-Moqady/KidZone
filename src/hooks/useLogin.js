@@ -3,9 +3,11 @@ import { useNavigate } from "react-router-dom";
 import axiosInstance from "../Api/axiosInstance";
 import { ErrorToast, SuccessToast } from "../toast/Toast";
 import useAuthStore from "../store/authStore";
+import decoder from "../decoder";
  
 export default function useLogin(){
   const setUserAccessToken = useAuthStore(state=> state.setUserAccessToken);
+  const setUser = useAuthStore(state=>state.setUser); 
   const navigate = useNavigate();
 
   //Mutation : 
@@ -13,7 +15,14 @@ export default function useLogin(){
     mutationFn:async values=>await axiosInstance.post(`/auth/Account/Login`,values),
     onSuccess:(response)=>{
         setUserAccessToken(response.data.accessToken);
-        SuccessToast("Logged in successfully");
+        const decoded= decoder(response.data.accessToken);
+        const user= {
+          name: decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'],
+          email: decoded['http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'],
+          role:decoded['http://schemas.microsoft.com/ws/2008/06/identity/claims/role']
+        };
+        setUser(user);
+        SuccessToast(`Welcome ${user.name}`);
         navigate("/");
     },
     onError:(err)=>{

@@ -70,6 +70,7 @@ function ResponsiveAppBar() {
   //from zustand auth store
   const userAccessToken = useAuthStore(state=> state.userAccessToken);
   const logout= useAuthStore(state=>state.logout);
+  const user= useAuthStore(state=>state.user);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -152,7 +153,7 @@ function ResponsiveAppBar() {
                   key={page.name}
                   onClick={handleCloseNavMenu}
                 >
-                  <Typography sx={{color:"#8B5E3C" }}>
+                  <Typography sx={{color:"#1f1c19" }}>
                     {page.name}
                   </Typography>
                 </MenuItem>:null
@@ -219,7 +220,7 @@ function ResponsiveAppBar() {
                 <Avatar sx={{ bgcolor: '#E47221' }} src="/broken-image.jpg" />
                 :
                 // للشخص المسجل دخوله
-                 <Avatar sx={{ bgcolor: '#E47221' }} alt="Raghad" src="/static/images/avatar/2.jpg" />  
+                 <Avatar sx={{ bgcolor: '#E47221' }} alt={user?.name} src="/static/images/avatar/2.jpg" />  
 
                 }
 
