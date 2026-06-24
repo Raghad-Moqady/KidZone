@@ -28,10 +28,11 @@ export default function Categories() {
       <Box sx={{
         display:"flex",
         alignItems:'center',
-        backgroundPositionY: '-55px',
+        // backgroundPositionY: '-55px',
         backgroundRepeat: 'no-repeat',
-        minHeight:'55vh',
+        minHeight:'50vh',
         backgroundSize: "cover" ,
+        backgroundAttachment:'fixed',
         backgroundImage:`url(${categoryBg})`}}>
         
         <Container sx={{paddingBottom:3}}>
