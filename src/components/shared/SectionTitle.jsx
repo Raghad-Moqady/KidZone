@@ -15,7 +15,7 @@ export default function SectionTitle({title, children}) {
 `;
   return (
   <>
-  <Box sx={{marginTop:5,marginBottom:5,textAlign:'center',display:'flex',justifyContent:'center'}}>
+  <Box sx={{ marginBottom:4,textAlign:'center',display:'flex',justifyContent:'center'}}>
     <Box sx={{}}>
       <Box sx={{
         display:'flex',
@@ -23,9 +23,10 @@ export default function SectionTitle({title, children}) {
         animation: `${float} 2s ease-in-out infinite`}}>
           {children}
       </Box>
-      <Typography component={'h2'} variant='h4' sx={{color:'#8B5E3C', fontWeight:'bold'}}>{title}</Typography>
+      <Typography component={'h2'}  sx={{color:'#8B5E3C', fontWeight:'bold',fontSize:{xs:'26px',sm:'27px',md:'30px'}}}>{title}</Typography>
     </Box>
   </Box>
   </>
   )
 }
+////

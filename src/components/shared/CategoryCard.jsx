@@ -8,18 +8,18 @@ export default function CategoryCard({content}) {
      <Link underline="none" component={RouterLink} to={'/route'}>
       <Card
         sx={{
-          paddingX: 6,
+          overflow: "hidden",
           paddingY: 3,
-          borderRadius: 50,
-          backgroundColor: "#e6cd3b61",
-          boxShadow: 0,
+          paddingX:1,
+          
+          boxShadow:'none',
+          backgroundColor:"#e2c9f3ab",
           color: "#8B5E3C",
-          fontSize: "24px",
+          fontSize: {xs:'21px',md:'22px'},
           transition: " 0.6s ease",
           textAlign:'center',
 
           "&:hover": {
-            backgroundColor: "#e6cc3bbc",
             cursor: "pointer",
             transform: "scale(1.1)",
           },
