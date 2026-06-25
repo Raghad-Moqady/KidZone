@@ -30,7 +30,7 @@ export default function Categories() {
         alignItems:'center',
         // backgroundPositionY: '-55px',
         backgroundRepeat: 'no-repeat',
-        minHeight:'50vh',
+        minHeight:'60vh',
         backgroundSize: "cover" ,
         backgroundAttachment:'fixed',
         backgroundImage:`url(${categoryBg})`}}>

@@ -15,8 +15,8 @@ export default function SectionTitle({title, children, childMovable=true}) {
 `;
   return (
   <>
-  <Box sx={{marginTop:4, marginBottom:5,textAlign:'center',display:'flex',justifyContent:'center'}}>
-    <Box sx={{}}>
+  <Box sx={{marginTop:4, marginBottom:5,display:'flex',justifyContent:'center'}}>
+    <Box >
       <Box sx={{
         display:'flex',
         justifyContent:'center',
