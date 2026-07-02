@@ -1,21 +1,20 @@
-import { Box, Card, Typography } from "@mui/material";
-import React from "react";
+import { Box, Card, Typography } from '@mui/material'
+import React from 'react'
 
-export default function ServiceCard({ service }) {
+export default function WhatWeOfferCard({ item }) {
   return (
-    <Card
+     <Card
       sx={{
         padding: 2,
         boxShadow: "none",
         color: "#8B5E3C",
         display: "flex",
-        borderRadius:0,
-        height:{sm:'10rem',md:"16rem",lg:"13rem"}
+        borderRadius:0, 
       }}
     >
         {/* icon */}
       <Box
-        sx={{ width: { xs: "3rem", sm: "5rem", md: "9rem" }, marginRight: 3, marginTop:1 }}
+        sx={{ width: { xs: "8rem",sm:'6rem', md: "8rem" }, marginRight: 3, marginTop:1 }}
       >
         <Box
           component="img"
@@ -23,7 +22,7 @@ export default function ServiceCard({ service }) {
             width: "100%",
           }}
           alt="icon"
-          src={service.icon}
+          src={item.icon}
         ></Box>
       </Box>
         {/* content */}
@@ -32,13 +31,13 @@ export default function ServiceCard({ service }) {
           component={"h3"}
           sx={{ fontSize: { xs: "24px",sm:'21px',lg:'20px'}, fontWeight: "bold" }}
         >
-          {service.title}
+          {item.title}
         </Typography>
 
         <Typography component={"p"} sx={{ fontSize: {xs:'15px',sm:'16px'} }}>
-          {service.paragraph}
+          {item.paragraph}
         </Typography>
       </Box>
     </Card>
-  );
+  )
 }

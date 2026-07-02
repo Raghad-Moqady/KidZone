@@ -25,7 +25,7 @@ export default function AboutUs() {
             <Typography
               sx={{
                 color: "#8B5E3C",
-                fontSize: { xs: "20px", sm: "21px", md: "24px" },
+                fontSize: '16px',
               }}
             >
               About us
