@@ -4,9 +4,10 @@ import React from "react";
 export default function ServiceCard({ service }) {
   return (
     <Card
+    variant="outlined"
       sx={{
         padding: 2,
-        boxShadow: "none",
+        boxShadow: "5px 5px 5px rgba(139, 94, 60, 0.12)",
         color: "#8B5E3C",
         display: "flex",
         borderRadius:0,
