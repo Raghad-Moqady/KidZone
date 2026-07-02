@@ -12,7 +12,7 @@ export default function Hero() {
       backgroundSize: "cover" ,
       backgroundPosition:{xs:'right',sm:'top'},
       backgroundRepeat: "no-repeat",
-      backgroundAttachment: "fixed",
+      // backgroundAttachment: "fixed",
       display:'flex', alignItems:'center', justifyContent:{xs:'center',sm:'unset'},
         "&::before": {
       content: '""',

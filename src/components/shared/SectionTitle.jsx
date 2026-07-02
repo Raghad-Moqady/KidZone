@@ -23,7 +23,7 @@ export default function SectionTitle({title, children, childMovable=true}) {
         animation:childMovable? `${float} 2s ease-in-out infinite`:''}}>
           {children}
       </Box>
-      <Typography component={'h2'}  sx={{color:'#8B5E3C', fontWeight:'bold',fontSize:{xs:'26px',sm:'27px',md:'30px'}}}>{title}</Typography>
+      <Typography component={'h2'}  sx={{color:'#8B5E3C', fontWeight:'bold',fontSize:{xs:'26px',sm:'27px',md:'30px',textAlign:'center'}}}>{title}</Typography>
     </Box>
   </Box>
   </>
