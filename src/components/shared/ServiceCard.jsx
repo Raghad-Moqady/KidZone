@@ -10,7 +10,7 @@ export default function ServiceCard({ service }) {
         boxShadow: "5px 5px 5px rgba(139, 94, 60, 0.12)",
         color: "#8B5E3C",
         display: "flex",
-        borderRadius:0,
+        borderRadius:3,
         height:{sm:'10rem',md:"16rem",lg:"13rem"}
       }}
     >
