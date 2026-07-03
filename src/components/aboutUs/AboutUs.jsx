@@ -28,7 +28,7 @@ export default function AboutUs() {
                 fontSize: '16px',
               }}
             >
-              About us
+              ABOUT US
             </Typography>
           </SectionTitle>
           <Typography

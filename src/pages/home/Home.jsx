@@ -5,6 +5,7 @@ import Categories from '../../components/categories/Categories.jsx'
 import AboutUs from '../../components/aboutUs/AboutUs.jsx'
 import WhatWeOffer from '../../components/whatWeOffer/WhatWeOffer.jsx'
 import Services from '../../components/services/Services.jsx'
+import Products from '../../components/products/Products.jsx'
 
 
 export default function Home() {
@@ -15,6 +16,7 @@ export default function Home() {
     <Categories/>
     <Services/>
     <WhatWeOffer/>
+    <Products/>
    </>
    
   )

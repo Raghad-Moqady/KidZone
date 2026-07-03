@@ -32,7 +32,7 @@ export default function WhatWeOffer() {
       },
     ];
   return (
-    <Box sx={{}}>
+    <Box sx={{paddingTop:4}}>
       <Grid sx={{alignItems:'center'}} container spacing={0}>
         <Grid size={{ xs: 12, md: 6 }}>
           <Item >
