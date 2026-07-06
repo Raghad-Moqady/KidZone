@@ -36,10 +36,10 @@ export default function Services() {
     },
   ];
   return (
-    <Box sx={{ }}>
+    <Box sx={{mt:6,mb:6 }}>
       <Container>
-        <SectionTitle title={"Services"}>
-          {/* children */}
+        {/* <SectionTitle title={"Services"}>
+          children
           <Box sx={{ width: { xs: "5rem", sm: "5.5rem", md: "6rem" } }}>
             <Box
               component="img"
@@ -50,7 +50,7 @@ export default function Services() {
               src={serviceIcon}
             ></Box>
           </Box>
-        </SectionTitle>
+        </SectionTitle> */}
         <Grid container spacing={2}>
           {services.map((service) => (
             <Grid key={service.title} size={{ xs: 12, sm: 6, md: 3 }}>

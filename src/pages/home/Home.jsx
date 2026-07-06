@@ -12,9 +12,10 @@ export default function Home() {
   return (
     <>
     <Hero/>
+    <Services/>
     <AboutUs/>
     <Categories/>
-    <Services/>
+    {/* <Services/> */}
     <WhatWeOffer/>
     <Products/>
    </>

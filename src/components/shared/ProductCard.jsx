@@ -19,7 +19,6 @@ export default function ProductCard({
   categoryName,
   status,
   discount,
-  isNew,
   price,
 }) {
   return (
@@ -55,21 +54,7 @@ export default function ProductCard({
           image={mainImage}
           title={name}
         />
-        {/* is New? */}
-        {isNew && (
-          <Chip
-            label="NEW"
-            size="small"
-            sx={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              backgroundColor: "#6CC6E8",
-              color: "#fff",
-              fontWeight: "bold",
-            }}
-          />
-        )}
+        
         {/* Discount Badge */}
         {discount > 0 && (
           <Chip
@@ -77,11 +62,12 @@ export default function ProductCard({
             size="small"
             sx={{
               position: "absolute",
-              top: 30,
+              top: 0,
               left: 0,
               backgroundColor: "#6aa385",
               color: "#fff",
               fontWeight: "bold",
+              borderRadius:0
             }}
           />
         )}
@@ -130,7 +116,7 @@ export default function ProductCard({
       {/* links */}
       <CardActions sx={{justifyContent:'space-between', paddingBottom:3 }}>
         <Button variant="contained"  endIcon={<ReadMoreIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221",width:'90%', borderRadius:50,boxShadow:0}}>Details</Button>
-        <Button size='large' sx={{color:"#E47221"}} ><AddShoppingCartIcon/></Button>
+        <Button size='large' sx={{color:"#E47221", borderRadius:50, backgroundColor:'whitesmoke'}} ><AddShoppingCartIcon/></Button>
       </CardActions>
     </Card>
   );

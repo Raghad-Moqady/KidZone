@@ -34,6 +34,7 @@ export default function AboutUs() {
           <Typography
             component={"p"}
             sx={{
+              paddingTop:{xs:0,sm:4},
               textAlign: "center",
               color: "#8B5E3C",
               fontSize: { xs: "16px", sm: "19px", md: "21px" },

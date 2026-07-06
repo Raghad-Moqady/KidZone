@@ -24,7 +24,7 @@ export default function Products() {
   return (
     <Box sx={{ paddingTop: 4 }}>
       <Container>
-        <SectionTitle title={"New Arrivals"}>
+        <SectionTitle title={"Our Products"}>
           {/* children */}
           <Box sx={{ width: { xs: "5rem", sm: "5.5rem", md: "6rem" } }}>
             <Box
@@ -48,7 +48,6 @@ export default function Products() {
                 categoryName="Toys"
                 status="Active"
                 discount="0"
-                isNew={true}
                 price="300"
               />
             </Item>
@@ -61,7 +60,6 @@ export default function Products() {
                 categoryName="Toys"
                 status="InActive"
                 discount="10"
-                isNew={true}
                 price="100"
               />
             </Item>
@@ -74,7 +72,6 @@ export default function Products() {
                 categoryName="Toys"
                 status="Active"
                 discount="11"
-                isNew={true}
                 price="50"
               />
             </Item>
@@ -87,7 +84,6 @@ export default function Products() {
                 categoryName="Toys"
                 status="Active"
                 discount="50"
-                isNew={true}
                 price="1000"
               />
             </Item>
@@ -100,11 +96,21 @@ export default function Products() {
             variant="contained"
             sx={{
               fontSize: { xs: "14px", sm: "16px" },
-              backgroundColor: "#579754",
+              fontWeight:'bold',
+              backgroundColor: "white",
+              border:1,
+              borderColor:'#E47221',
+              color:'#E47221',
               px:7,py:1,
               borderRadius: 50,
               boxShadow: 0,
+              transition: " .8s ease",
+              "&:hover":{
+                backgroundColor:'#E47221',
+                color:'white'
+              }
             }}
+            
           >
              More Products
           </Button>
