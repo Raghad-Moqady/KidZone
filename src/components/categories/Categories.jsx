@@ -8,7 +8,6 @@ import CategoryCard from "../shared/CategoryCard.jsx";
 import axiosInstance from "./../../Api/axiosInstance";
 import Loader from "../loader/Loader.jsx";
 import ErrorAlert from "./../alert/ErrorAlert.jsx";
-import { useQuery } from "@tanstack/react-query";
 import useCategories from "../../hooks/useCategories.js";
 import categoryBg from '../../assets/imgs/categoryBG2.png'
 
@@ -18,7 +17,7 @@ import { Autoplay } from "swiper/modules";
 import "swiper/css";
 
 export default function Categories() {
-  const { isLoading, isError, data } = useCategories();
+  const { isLoading, isError, data ,error} = useCategories();
 
   if (isLoading) {
     return <Loader />;
@@ -50,7 +49,7 @@ export default function Categories() {
             </Box>
           </SectionTitle>
           {isError ? (
-            <ErrorAlert message={"Error"} />
+            <ErrorAlert message={error.message} />
           ) : (
             //   <Box className="categoriesBox">
             //   <Grid container spacing={3}>

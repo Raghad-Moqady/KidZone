@@ -10,17 +10,10 @@ import {
   Typography,
 } from "@mui/material";
 import React from "react";
-import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import ReadMoreIcon from '@mui/icons-material/ReadMore';
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
+import ReadMoreIcon from "@mui/icons-material/ReadMore";
 
-export default function ProductCard({
-  mainImage,
-  name,
-  categoryName,
-  status,
-  discount,
-  price,
-}) {
+export default function ProductCard({ product }) {
   return (
     <Card
       variant="outlined"
@@ -51,14 +44,14 @@ export default function ProductCard({
         {/* image */}
         <CardMedia
           sx={{ height: 220, backgroundSize: "contain" }}
-          image={mainImage}
-          title={name}
+          image={product.mainImage}
+          title={product.name}
         />
-        
+
         {/* Discount Badge */}
-        {discount > 0 && (
+        {product.discount > 0 && (
           <Chip
-            label={`-${discount} %`}
+            label={`-${product.discount} %`}
             size="small"
             sx={{
               position: "absolute",
@@ -67,7 +60,7 @@ export default function ProductCard({
               backgroundColor: "#6aa385",
               color: "#fff",
               fontWeight: "bold",
-              borderRadius:0
+              borderRadius: 0,
             }}
           />
         )}
@@ -80,7 +73,7 @@ export default function ProductCard({
             right: -35,
             width: 140,
             textAlign: "center",
-            backgroundColor: status == "Active" ? "#4CAF50" : "red",
+            backgroundColor: product.status == "Active" ? "#4CAF50" : "red",
             color: "#fff",
             fontWeight: "bold",
             fontSize: 13,
@@ -89,34 +82,63 @@ export default function ProductCard({
             boxShadow: "0 4px 10px rgba(0,0,0,.2)",
           }}
         >
-          {status == "Active" ? "Available" : "Sold Out"}
+          {product.status == "Active" ? "Available" : "Sold Out"}
         </Box>
       </Card>
       {/* content */}
       <CardContent>
         <Typography variant="body2" component="span" sx={{ color: "gray" }}>
-          {categoryName}
+          {product.categoryName}
         </Typography>
         <Typography
           gutterBottom
           component="div"
-          sx={{ fontSize: { xs: "24px",sm:'21px',lg:'20px'}, fontWeight: "bold",color: "#8B5E3C" }}
+          sx={{
+            fontSize: { xs: "24px", sm: "21px", lg: "20px" },
+            fontWeight: "bold",
+            color: "#8B5E3C",
+          }}
         >
-          {name}
+          {product.name}
         </Typography>
-        <Rating name="read-only" value={3.4} readOnly precision={0.1} />
+        <Rating name="read-only" value={product.rate} readOnly precision={0.1} />
         <Typography
           gutterBottom
           component="div"
-          sx={{ fontSize: { xs: "24px",sm:'21px',lg:'20px'},fontWeight: "bold", color: '#6aa385' }}
+          sx={{
+            fontSize: { xs: "24px", sm: "21px", lg: "20px" },
+            fontWeight: "bold",
+            color: "#6aa385",
+          }}
         >
-          ${price}
+          ${product.price}
         </Typography>
       </CardContent>
       {/* links */}
-      <CardActions sx={{justifyContent:'space-between', paddingBottom:3 }}>
-        <Button variant="contained"  endIcon={<ReadMoreIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221",width:'90%', borderRadius:50,boxShadow:0}}>Details</Button>
-        <Button size='large' sx={{color:"#E47221", borderRadius:50, backgroundColor:'whitesmoke'}} ><AddShoppingCartIcon/></Button>
+      <CardActions sx={{ justifyContent: "space-between", paddingBottom: 3 }}>
+        <Button
+          variant="contained"
+          endIcon={<ReadMoreIcon />}
+          sx={{
+            fontSize: { xs: "14px", sm: "16px" },
+            backgroundColor: "#E47221",
+            width: "90%",
+            borderRadius: 50,
+            boxShadow: 0,
+          }}
+        >
+          Details
+        </Button>
+        <Button
+          size="large"
+          sx={{
+            color: "#E47221",
+            borderRadius: 50,
+            backgroundColor: "whitesmoke",
+          }}
+        >
+          <AddShoppingCartIcon />
+        </Button>
       </CardActions>
     </Card>
   );
