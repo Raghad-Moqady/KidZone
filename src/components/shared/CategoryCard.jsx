@@ -13,7 +13,7 @@ export default function CategoryCard({content}) {
           paddingX:1,
           
           boxShadow:'none',
-          backgroundColor:"#e2c9f3ab",
+          backgroundColor:"white",
           color: "#8B5E3C",
           fontSize: {xs:'21px',md:'22px'},
           transition: " 0.6s ease",

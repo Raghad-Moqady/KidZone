@@ -30,7 +30,7 @@ export default function Products() {
       <Container>
         <SectionTitle title={"Our Products"}>
           {/* children */}
-          <Box sx={{ width: { xs: "5rem", sm: "5.5rem", md: "6rem" } }}>
+          <Box sx={{width: { xs: "4rem", sm: "5rem" } }}>
             <Box
               component="img"
               sx={{

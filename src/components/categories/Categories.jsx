@@ -1,7 +1,7 @@
 import { Box, Card, Container } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import SectionTitle from "../shared/SectionTitle.jsx";
-import sunIcon from "../../assets/imgs/sunIcon.svg";
+import Icon from "../../assets/imgs/categoryIcon.png";
 import Grid from "@mui/material/Grid";
 import Item from "@mui/material/Grid";
 import CategoryCard from "../shared/CategoryCard.jsx";
@@ -9,7 +9,7 @@ import axiosInstance from "./../../Api/axiosInstance";
 import Loader from "../loader/Loader.jsx";
 import ErrorAlert from "./../alert/ErrorAlert.jsx";
 import useCategories from "../../hooks/useCategories.js";
-import categoryBg from '../../assets/imgs/categoryBG2.png'
+import categoryBg from '../../assets/imgs/categoriesImg.png'
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper/modules";
@@ -32,19 +32,34 @@ export default function Categories() {
         minHeight:'60vh',
         backgroundSize: "cover" ,
         backgroundAttachment:'fixed',
-        backgroundImage:`url(${categoryBg})`}}>
+        backgroundImage:`url(${categoryBg})`,
+        "&::before": {
+      content: '""',
+      position: "absolute",
+      right:0,left:0,
+      minHeight:'60vh',
+      backgroundColor: {
+        xs: "#17161662",
+     
+      },
+      backdropFilter: {
+        xs:"blur(2px)",
         
-        <Container sx={{paddingBottom:3}}>
-          <SectionTitle title={"Categories"}>
+      }, 
+      
+        }}}>
+        
+        <Container sx={{paddingBottom:3,zIndex:4}}>
+          <SectionTitle title={"Categories"} color={"white"}>
             {/* children */}
-            <Box sx={{ width: { xs: "5rem", sm: "5.5rem", md: "6rem" } }}>
+            <Box sx={{ width: { xs: "4rem", sm: "5rem" } }}>
               <Box
                 component="img"
                 sx={{
                   width: "100%",
                 }}
-                alt="sun_icon"
-                src={sunIcon}
+                alt="Icon"
+                src={Icon}
               ></Box>
             </Box>
           </SectionTitle>
