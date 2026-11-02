@@ -4,14 +4,8 @@ import titleIcon from "../../assets/imgs/productsIcon.webp";
 import {
   Box,
   Button,
-  Card,
-  CardActions,
-  CardContent,
-  CardMedia,
   Container,
   Grid,
-  Link,
-  Typography,
 } from "@mui/material";
 import SectionTitle from "../shared/SectionTitle";
 import Item from "@mui/material/Grid";
@@ -19,11 +13,11 @@ import ProductCard from "../shared/ProductCard";
 import Loader from "../loader/Loader.jsx";
 import ErrorAlert from "../alert/ErrorAlert.jsx";
 import { Link as RouterLink } from "react-router-dom";
-import useHomeProducts from "../../hooks/useHomeProducts.js";
+import useProducts from "../../hooks/useProducts.js";
 
+//Home
 export default function Products() {
-  const { isLoading, isError, data, error } = useHomeProducts("Products");
- 
+ const { isLoading, isError, data, error } = useProducts();
   if (isLoading) {
     return <Loader />;
   }

@@ -6,13 +6,14 @@ import useProducts from "../../hooks/useProducts";
 import Loader from "../../components/loader/Loader.jsx";
 import FilterDrower from "../../components/filteDrower/FilterDrower.jsx";
 
-
+//Page
 export default function Products() {
   const { id, content } = useParams();
-  const { isLoading, isError, data, error } = useProducts(
-    id ? `Products?categoryId=${id}&limit=6` : "Products?limit=6",
-  );
-  console.log(data);
+
+  const { isLoading, isError, data, error } = useProducts({
+    categoryId: id ? id : null,
+    limit: 6,
+  });
   if (isLoading) {
     return <Loader />;
   }
@@ -41,7 +42,7 @@ export default function Products() {
         </SectionHero>
         <Container>
           <Box sx={{ mt: 6 }}>
-            <FilterDrower/>
+            <FilterDrower />
           </Box>
         </Container>
       </Box>

@@ -5,7 +5,7 @@ import { Link as RouterLink } from "react-router-dom";
 export default function CategoryCard({content,id}) {
   return (
     <>
-     <Link underline="none" component={RouterLink} to={`/Products/category/${id}/${content}`}>
+     <Link underline="none" component={RouterLink} to={`/products/category/${id}/${content}`}>
       <Card
         sx={{
           overflow: "hidden",

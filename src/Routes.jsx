@@ -31,10 +31,6 @@ const router = createBrowserRouter([
         element:<AboutUs/>
       },
       {
-        path:'products',
-        element:<Products/>
-      },
-      {
         path:'cart',
         element:
         <ProtectedRouter>
@@ -49,11 +45,11 @@ const router = createBrowserRouter([
         </ProtectedRouter>
       },
       {
-         path:'/Products/category/:id/:content',
+         path:'products/category/:id/:content',
          element:<Products/>
       },
       {
-        path:'/Products',
+        path:'products',
         element:<Products/>
       },
       {
