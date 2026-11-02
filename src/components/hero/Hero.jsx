@@ -3,6 +3,7 @@ import { Box, Button, Container, Typography } from '@mui/material'
 import heroImg from '../../assets/imgs/heroImg2.png'
 import SendIcon  from '@mui/icons-material/Send';
 import Logo from './../logo/Logo.jsx';
+import { Link as RouterLink } from "react-router-dom";
 
 export default function Hero() {
   return (
@@ -47,7 +48,7 @@ export default function Hero() {
           <Typography component={'p'} sx={{fontSize:{xs:'20px',sm:'22px',md:'23px',lg:'24px'},color:{xs:'#ffffff',sm:'#8B5E3C'},mt:1}} >
             Clothes, Toys, Learning & More
           </Typography>
-          <Button type="submit" variant="contained"  endIcon={<SendIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221",px:7,py:1, mt:2, borderRadius:50,boxShadow:0}}>shop Now</Button>
+          <Button type="submit" component={RouterLink} to={'/Products'} variant="contained"  endIcon={<SendIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221",px:7,py:1, mt:2, borderRadius:50,boxShadow:0}}>shop Now</Button>
         </Box>
     </Box>
   )

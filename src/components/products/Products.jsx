@@ -10,18 +10,20 @@ import {
   CardMedia,
   Container,
   Grid,
+  Link,
   Typography,
 } from "@mui/material";
 import SectionTitle from "../shared/SectionTitle";
 import Item from "@mui/material/Grid";
 import ProductCard from "../shared/ProductCard";
-import useProducts from "../../hooks/useProducts";
 import Loader from "../loader/Loader.jsx";
 import ErrorAlert from "../alert/ErrorAlert.jsx";
+import { Link as RouterLink } from "react-router-dom";
+import useHomeProducts from "../../hooks/useHomeProducts.js";
 
 export default function Products() {
-  const { isLoading, isError, data, error } = useProducts();
-   console.log(error);
+  const { isLoading, isError, data, error } = useHomeProducts("Products");
+ 
   if (isLoading) {
     return <Loader />;
   }
@@ -30,7 +32,7 @@ export default function Products() {
       <Container>
         <SectionTitle title={"Our Products"}>
           {/* children */}
-          <Box sx={{width: { xs: "4rem", sm: "5rem" } }}>
+          <Box sx={{ width: { xs: "4rem", sm: "5rem" } }}>
             <Box
               component="img"
               sx={{
@@ -60,6 +62,8 @@ export default function Products() {
             <Box sx={{ textAlign: "center", marginTop: 4 }}>
               <Button
                 variant="contained"
+                component={RouterLink}
+                to={'/products'}
                 sx={{
                   fontSize: { xs: "14px", sm: "16px" },
                   fontWeight: "bold",

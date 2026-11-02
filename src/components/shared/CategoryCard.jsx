@@ -2,10 +2,10 @@ import { Card, Link } from "@mui/material";
 import React from "react";
 import { Link as RouterLink } from "react-router-dom";
 
-export default function CategoryCard({content}) {
+export default function CategoryCard({content,id}) {
   return (
     <>
-     <Link underline="none" component={RouterLink} to={'/route'}>
+     <Link underline="none" component={RouterLink} to={`/Products/category/${id}/${content}`}>
       <Card
         sx={{
           overflow: "hidden",

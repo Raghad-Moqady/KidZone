@@ -108,7 +108,7 @@ export default function Categories() {
               {data?.map((category) => (
                 <SwiperSlide key={category.id}>
                   <Box sx={{ overflow: "hidden" , borderRadius:50}}>
-                    <CategoryCard content={category.name} />
+                    <CategoryCard content={category.name} id={category.id} />
                   </Box>
                 </SwiperSlide>
               ))}
