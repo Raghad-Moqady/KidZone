@@ -4,7 +4,6 @@ import { Box, Container, Typography } from "@mui/material";
 import SectionHero from "../../components/shared/SectionHero";
 import useProducts from "../../hooks/useProducts";
 import Loader from "../../components/loader/Loader.jsx";
-import FilterDrower from "../../components/filteDrower/FilterDrower.jsx";
 
 //Page
 export default function Products() {
@@ -41,9 +40,7 @@ export default function Products() {
           )}
         </SectionHero>
         <Container>
-          <Box sx={{ mt: 6 }}>
-            <FilterDrower />
-          </Box>
+          {/* stop hear */}
         </Container>
       </Box>
     </>
