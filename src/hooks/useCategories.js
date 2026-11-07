@@ -1,18 +1,7 @@
-import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import axiosInstance from "../Api/axiosInstance";
+import useFetch from "./useFetch";
 
-export default function useCategories() {
-  const getCategories = async () => {
-    const response = await axiosInstance.get(`/Categories?lang=en`);
-    return response.data.categories;
-  };
-
-  const query = useQuery({
-    queryKey: ["categories"],
-    staleTime: 5 * 60 * 1000,
-    queryFn: getCategories,
+export default function useCategories({ lang = "en" } = {}) {
+  return useFetch(["categories", { lang }], "/Categories", {
+    lang,
   });
-
-  return query;
 }

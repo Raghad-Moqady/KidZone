@@ -1,5 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
-import axiosInstance from "../Api/axiosInstance";
+import useFetch from "./useFetch";
 
 export default function useProducts({
   lang = "en",
@@ -12,26 +11,8 @@ export default function useProducts({
   page = 1,
   limit = 4,
 } = {}) {
-  const getProducts = async () => {
-    const response = await axiosInstance.get("/Products", {
-      params: {
-        lang,
-        search: search || undefined,
-        categoryId: categoryId ?? undefined,
-        minPrice: minPrice ?? undefined,
-        maxPrice: maxPrice ?? undefined,
-        sortBy: sortBy || undefined,
-        asc,
-        page,
-        limit,
-      },
-    });
-
-    return response.data.response.data;
-  };
-
-  const query= useQuery({
-    queryKey: [
+  return useFetch(
+    [
       "products",
       {
         lang,
@@ -45,8 +26,17 @@ export default function useProducts({
         limit,
       },
     ],
-    queryFn: getProducts,
-    staleTime: 5 * 60 * 1000,
-  });
-  return query;
+    "/Products",
+    {
+      lang,
+      search: search || undefined,
+      categoryId: categoryId ?? undefined,
+      minPrice: minPrice ?? undefined,
+      maxPrice: maxPrice ?? undefined,
+      sortBy: sortBy || undefined,
+      asc,
+      page,
+      limit,
+    },
+  );
 }

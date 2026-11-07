@@ -43,7 +43,7 @@ export default function Products() {
           <>
             {/* product Cards */}
             <Grid container spacing={3}>
-              {data?.map((product) => (
+              {data.response.data?.map((product) => (
                 <Grid key={product.id} size={{ xs: 12, sm: 6, md: 3 }}>
                   <Item>
                     <ProductCard product={product} />

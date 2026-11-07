@@ -22,6 +22,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import SortIcon from "@mui/icons-material/Sort";
 import ErrorAlert from "../../components/alert/ErrorAlert.jsx";
 import ProductCard from "../../components/shared/ProductCard.jsx";
+import TuneIcon from "@mui/icons-material/Tune";
 //Page
 //معالجة حالة في حال كان عدد المنتجات 0 ايش لازم نعرض ؟
 export default function Products() {
@@ -209,12 +210,12 @@ export default function Products() {
           </Box>
         </Card>
 
-        <Grid  container spacing={2}>
+        <Grid container spacing={2}>
+          {/* filters */}
           <Grid size={2.5}>
             <Item>
               <Card
                 sx={{
-                 
                   boxShadow: "0px 1px 6px -1px rgba(0, 0, 0, 0.1)",
                   p: "20px 20px 20px 20px",
                   borderRadius: "10px",
@@ -224,6 +225,7 @@ export default function Products() {
               </Card>
             </Item>
           </Grid>
+          {/* show all products */}
           <Grid size={9.5}>
             <Item>
               {isError ? (
@@ -232,7 +234,7 @@ export default function Products() {
                 <>
                   {/* product Cards */}
                   <Grid container spacing={3}>
-                    {data?.map((product) => (
+                    {data.response.data?.map((product) => (
                       <Grid key={product.id} size={{ xs: 12, sm: 6, md: 3 }}>
                         <Item>
                           <ProductCard product={product} />
@@ -246,6 +248,6 @@ export default function Products() {
           </Grid>
         </Grid>
       </Box>
-    </>
+    </>  
   );
 }
