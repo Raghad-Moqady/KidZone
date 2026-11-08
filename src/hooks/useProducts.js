@@ -28,7 +28,6 @@ export default function useProducts({
     ],
     "/Products",
     {
-      lang,
       search: search || undefined,
       categoryId: categoryId ?? undefined,
       minPrice: minPrice ?? undefined,
