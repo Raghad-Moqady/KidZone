@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import {
+  Alert,
   Box,
   Card,
-  Container,
   FormControl,
   Grid,
   IconButton,
@@ -11,10 +11,10 @@ import {
   Link,
   MenuItem,
   Select,
+  Skeleton,
   Typography,
 } from "@mui/material";
 import useProducts from "../../hooks/useProducts";
-import Loader from "../../components/loader/Loader.jsx";
 import { Link as RouterLink } from "react-router-dom";
 import Item from "@mui/material/Grid";
 import SearchIcon from "@mui/icons-material/Search";
@@ -24,25 +24,61 @@ import ErrorAlert from "../../components/alert/ErrorAlert.jsx";
 import ProductCard from "../../components/shared/ProductCard.jsx";
 import TuneIcon from "@mui/icons-material/Tune";
 //Page
-//معالجة حالة في حال كان عدد المنتجات 0 ايش لازم نعرض ؟
 export default function Products() {
   const { id, content } = useParams();
-
-  const { isLoading, isError, data, error } = useProducts({
-    categoryId: id ? id : null,
+  const [searchInput, setSearchInput] = useState("");
+  const [sortValue, setSortValue] = useState("default");
+  const sortOptions = {
+    default: { sortBy: null, asc: true },
+    priceAsc: { sortBy: "price", asc: true },
+    priceDesc: { sortBy: "price", asc: false },
+    nameAsc: { sortBy: "name", asc: true },
+    nameDesc: { sortBy: "name", asc: false },
+    rateDesc: { sortBy: "rate", asc: false },
+    rateAsc: { sortBy: "rate", asc: true },
+  };
+  const handelSortChange = (e) => {
+    setSortValue(e.target.value);
+    setActiveFilters((prev) => ({
+      ...prev,
+      sortBy: sortOptions[e.target.value].sortBy,
+      asc: sortOptions[e.target.value].asc,
+      page: 1,
+    }));
+  };
+  const [activeFilters, setActiveFilters] = useState({
+    lang: "en",
+    search: "",
+    categoryId: id ? Number(id) : null,
+    minPrice: null,
+    maxPrice: null,
+    sortBy: null,
+    asc: true,
+    page: 1,
     limit: 6,
   });
+  const { isLoading, isError, data, error } = useProducts(activeFilters);
 
-  //مؤقت
-  const [age, setAge] = React.useState("");
+  // لحل مشكلة الدخول اولا على هذه الصفحة من خلال تصنيف معين ثم الانتقال الى نفس الصقحة من خلال البروداكت الموجودة بالنافبار لان بدون هاد الكود ما رح يحدَث البيانات
+  useEffect(() => {
+    setActiveFilters((prev) => ({
+      ...prev,
+      categoryId: id ? Number(id) : null,
+      page: 1,
+    }));
+  }, [id]);
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setActiveFilters((prev) => ({
+        ...prev,
+        search: searchInput.trim(),
+        page: 1,
+      }));
+    }, 700);
 
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
-  if (isLoading) {
-    return <Loader />;
-  }
   return (
     <>
       <Box
@@ -123,9 +159,20 @@ export default function Products() {
                     height: "48px",
                   }}
                 >
-                  <SearchIcon sx={{ color: "#8B5E3C" }} />
+                  <SearchIcon
+                    sx={{
+                      color:
+                        isLoading || data?.response.data.length == 0
+                          ? "#8b5e3c7e"
+                          : "#8B5E3C",
+                    }}
+                  />
 
                   <InputBase
+                    value={searchInput}
+                    onChange={(e) => {
+                      setSearchInput(e.target.value);
+                    }}
                     fullWidth
                     placeholder="Search products by name or description..."
                     sx={{
@@ -134,8 +181,19 @@ export default function Products() {
                     }}
                   />
 
-                  <IconButton size="small">
-                    <CloseIcon sx={{ fontSize: 19 }} />
+                  <IconButton
+                    disabled={searchInput == ""}
+                    size="small"
+                    onClick={() => {
+                      setSearchInput("");
+                    }}
+                  >
+                    <CloseIcon
+                      sx={{
+                        fontSize: 19,
+                        color: searchInput == "" ? "#8b5e3c7e" : "#8b5e3c",
+                      }}
+                    />
                   </IconButton>
                 </Box>
               </Item>
@@ -160,23 +218,14 @@ export default function Products() {
                   </Grid>
                   <Grid size={8}>
                     <Item>
-                      {/* 
-                      Price: Low to High.
-
-                        Price: High to Low.
-
-                        Name: A to Z.
-
-                        Name: Z to A.
-
-                        Highest Rated.
-
-                        Lowest Rated. */}
                       <FormControl sx={{ width: "100%" }}>
                         <Select
-                          value={age}
-                          onChange={handleChange}
+                          value={sortValue}
+                          onChange={handelSortChange}
                           displayEmpty
+                          disabled={
+                            isLoading || data?.response.data.length == 0
+                          }
                           sx={{
                             height: "48px",
                             borderRadius: "12px",
@@ -187,15 +236,19 @@ export default function Products() {
                             "&:hover .MuiOutlinedInput-notchedOutline": {
                               border: "none",
                             },
-                            "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
-                              border: "none",
-                            },
                           }}
                         >
-                          <MenuItem value="">SortedBy</MenuItem>
-                          <MenuItem value={10}>Ten</MenuItem>
-                          <MenuItem value={20}>Twenty</MenuItem>
-                          <MenuItem value={30}>Thirty</MenuItem>
+                          <MenuItem value="default">Default sorting</MenuItem>
+                          <MenuItem value="priceAsc">
+                            Price: Low to High
+                          </MenuItem>
+                          <MenuItem value="priceDesc">
+                            Price: High to Low
+                          </MenuItem>
+                          <MenuItem value="nameAsc">Name: A to Z</MenuItem>
+                          <MenuItem value="nameDesc">Name: Z to A</MenuItem>
+                          <MenuItem value="rateDesc">Highest Rated</MenuItem>
+                          <MenuItem value="rateAsc">Lowest Rated</MenuItem>
                         </Select>
                       </FormControl>
                     </Item>
@@ -228,8 +281,32 @@ export default function Products() {
           {/* show all products */}
           <Grid size={9.5}>
             <Item>
-              {isError ? (
-                <ErrorAlert message={error.message} />
+              {isLoading ? (
+                <Grid container spacing={3}>
+                  {Array.from({ length: 4 }).map((_, index) => (
+                    <Grid key={index} size={{ xs: 12, sm: 6, md: 3 }}>
+                      <Skeleton
+                        variant="rounded"
+                        animation="wave"
+                        height={300}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+              ) : isError ? (
+                <ErrorAlert message={error?.message} />
+              ) : data.response.data.length == 0 ? (
+                <Alert
+                  severity="info"
+                  sx={{
+                    margin: "auto",
+                    width: "80%",
+                    display: "flex",
+                    justifyContent: "center",
+                  }}
+                >
+                  Data Not Found!
+                </Alert>
               ) : (
                 <>
                   {/* product Cards */}
@@ -248,6 +325,6 @@ export default function Products() {
           </Grid>
         </Grid>
       </Box>
-    </>  
+    </>
   );
 }
