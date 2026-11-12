@@ -18,6 +18,7 @@ import {
   RadioGroup,
   Select,
   Skeleton,
+  Slider,
   Typography,
 } from "@mui/material";
 import useProducts from "../../hooks/useProducts";
@@ -33,7 +34,7 @@ import useCategories from "./../../hooks/useCategories";
 import Loader from "./../../components/loader/Loader.jsx";
 import { useForm, Controller } from "react-hook-form";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
-import Categories from "./../../components/categories/Categories";
+import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 //Page
 export default function Products() {
   const { id, content } = useParams();
@@ -66,9 +67,11 @@ export default function Products() {
     reset,
     setValue,
     formState: { isSubmitting },
+    watch
   } = useForm({
     defaultValues: {
       categoryId: id ? String(id) : "null",
+      priceRange: [0, 500],
     },
   });
   //for category filter
@@ -80,10 +83,12 @@ export default function Products() {
   } = useCategories();
 
   const sendData = (values) => {
-    console.log(values);
-    const formFilters={
-        categoryId: values.categoryId=='null'?null:Number(values.categoryId),
-    }
+    const formFilters = {
+      categoryId:
+        values.categoryId == "null" ? null : Number(values.categoryId),
+      minPrice: values.priceRange[0] == 0 ? null : values.priceRange[0],
+      maxPrice: values.priceRange[1] == 500 ? null : values.priceRange[1],
+    };
     setActiveFilters((prev) => ({
       ...prev,
       ...formFilters,
@@ -108,8 +113,9 @@ export default function Products() {
   useEffect(() => {
     //for categories filter (react hook form)
     const categoryId = id ? String(id) : "null";
+    const priceRange = [0, 500];
     setValue("categoryId", categoryId);
-
+    setValue("priceRange", priceRange);
     setActiveFilters((prev) => ({
       ...prev,
       categoryId: id ? Number(id) : null,
@@ -349,11 +355,50 @@ export default function Products() {
                   onSubmit={handleSubmit(sendData)}
                   sx={{ marginTop: "24px" }}
                 >
+                  {/* Min & Max Price */}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Typography sx={{ fontWeight: "bold", color: "#1E1B17" }}>
+                      PRICE RANG
+                    </Typography>
+                    <AttachMoneyOutlinedIcon sx={{ color: "#83746B" }} />
+                  </Box>
+                  <Controller
+                    name="priceRange"
+                    control={control}
+                    render={({ field }) => (
+                      <Slider
+                        {...field}
+                        valueLabelDisplay="auto"
+                        getAriaLabel={(index) =>
+                          index === 0 ? "Minimum price" : "Maximum price"
+                        }
+                        min={0}
+                        max={500}
+                        sx={{ color: "#E47221" }}
+                      />
+                    )}
+                  />
+                  <Box sx={{display:'flex', justifyContent:'space-between'}}>
+                    <Box>
+                      <Typography sx={{textAlign:'center'}}>Min Price</Typography>
+                    <Typography sx={{ textAlign:'center',background:'#F8F1E8', paddingX:'20px', paddingY:'5px'}}>$ {watch("priceRange")[0]}</Typography>
+                    </Box>
+                    <Box>
+                      <Typography sx={{textAlign:'center'}}>Max Price</Typography>
+                    <Typography sx={{textAlign:'center' ,background:'#F8F1E8', paddingX:'20px', paddingY:'5px'}}>$ {watch("priceRange")[1]}</Typography>
+                    </Box>
+                  </Box>
                   {/* categories */}
                   <Box
                     sx={{
                       display: "flex",
                       justifyContent: "space-between",
+                      mt: "24px",
                     }}
                   >
                     <Typography sx={{ fontWeight: "bold", color: "#1E1B17" }}>
@@ -409,8 +454,6 @@ export default function Products() {
                       )}
                     />
                   )}
-
-                  {/* Min & Max Price */}
 
                   <Button
                     fullWidth
