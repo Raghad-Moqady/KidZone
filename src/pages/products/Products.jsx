@@ -3,13 +3,19 @@ import { useParams } from "react-router-dom";
 import {
   Alert,
   Box,
+  Button,
   Card,
+  Checkbox,
   FormControl,
+  FormControlLabel,
+  FormGroup,
   Grid,
   IconButton,
   InputBase,
   Link,
   MenuItem,
+  Radio,
+  RadioGroup,
   Select,
   Skeleton,
   Typography,
@@ -23,10 +29,17 @@ import SortIcon from "@mui/icons-material/Sort";
 import ErrorAlert from "../../components/alert/ErrorAlert.jsx";
 import ProductCard from "../../components/shared/ProductCard.jsx";
 import TuneIcon from "@mui/icons-material/Tune";
+import useCategories from "./../../hooks/useCategories";
+import Loader from "./../../components/loader/Loader.jsx";
+import { useForm, Controller } from "react-hook-form";
+import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
+import Categories from "./../../components/categories/Categories";
 //Page
 export default function Products() {
   const { id, content } = useParams();
+  //search
   const [searchInput, setSearchInput] = useState("");
+  //sort
   const [sortValue, setSortValue] = useState("default");
   const sortOptions = {
     default: { sortBy: null, asc: true },
@@ -46,6 +59,38 @@ export default function Products() {
       page: 1,
     }));
   };
+  //React Hook Form
+  const {
+    control,
+    handleSubmit,
+    reset,
+    setValue,
+    formState: { isSubmitting },
+  } = useForm({
+    defaultValues: {
+      categoryId: id ? String(id) : "null",
+    },
+  });
+  //for category filter
+  const {
+    isLoading: categoriesIsLoading,
+    isError: categoriesisError,
+    data: categories,
+    error: categoriesError,
+  } = useCategories();
+
+  const sendData = (values) => {
+    console.log(values);
+    const formFilters={
+        categoryId: values.categoryId=='null'?null:Number(values.categoryId),
+    }
+    setActiveFilters((prev) => ({
+      ...prev,
+      ...formFilters,
+      page: 1,
+    }));
+  };
+  //to send final result
   const [activeFilters, setActiveFilters] = useState({
     lang: "en",
     search: "",
@@ -61,6 +106,10 @@ export default function Products() {
 
   // لحل مشكلة الدخول اولا على هذه الصفحة من خلال تصنيف معين ثم الانتقال الى نفس الصقحة من خلال البروداكت الموجودة بالنافبار لان بدون هاد الكود ما رح يحدَث البيانات
   useEffect(() => {
+    //for categories filter (react hook form)
+    const categoryId = id ? String(id) : "null";
+    setValue("categoryId", categoryId);
+
     setActiveFilters((prev) => ({
       ...prev,
       categoryId: id ? Number(id) : null,
@@ -212,7 +261,9 @@ export default function Products() {
                         }}
                       >
                         <SortIcon sx={{ color: "#6F4627" }} />
-                        <Typography color="#51443C">Sorted By:</Typography>
+                        <Typography color="#51443C" sx={{ fontWeight: "bold" }}>
+                          Sorted By:
+                        </Typography>
                       </Box>
                     </Item>
                   </Grid>
@@ -274,7 +325,114 @@ export default function Products() {
                   borderRadius: "10px",
                 }}
               >
-                filters
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "start",
+                  }}
+                >
+                  <TuneIcon sx={{ color: "#6F4627" }} />
+                  <Typography
+                    color="#51443C"
+                    sx={{
+                      fontWeight: "bold",
+                      marginLeft: "8px",
+                      fontSize: "18px",
+                    }}
+                  >
+                    FILTERS
+                  </Typography>
+                </Box>
+                {/* form */}
+                <Box
+                  component={"form"}
+                  onSubmit={handleSubmit(sendData)}
+                  sx={{ marginTop: "24px" }}
+                >
+                  {/* categories */}
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Typography sx={{ fontWeight: "bold", color: "#1E1B17" }}>
+                      CATEGORIES
+                    </Typography>
+                    <CategoryOutlinedIcon sx={{ color: "#83746B" }} />
+                  </Box>
+                  {categoriesIsLoading ? (
+                    <Skeleton
+                      variant="rounded"
+                      animation="wave"
+                      height={80}
+                      sx={{ mt: 2 }}
+                    />
+                  ) : categoriesisError ? (
+                    <ErrorAlert
+                      message={
+                        categoriesError?.message || "Failed to load categories"
+                      }
+                    />
+                  ) : categories?.categories.length === 0 ? (
+                    <Alert
+                      severity="info"
+                      sx={{
+                        margin: "auto",
+                        width: "80%",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      Categories Not Found!
+                    </Alert>
+                  ) : (
+                    <Controller
+                      name="categoryId"
+                      control={control}
+                      render={({ field }) => (
+                        <RadioGroup {...field} sx={{ marginTop: "12px" }}>
+                          <FormControlLabel
+                            value={"null"}
+                            control={<Radio />}
+                            label="All Categories"
+                          />
+                          {categories?.categories.map((category) => (
+                            <FormControlLabel
+                              key={category.id}
+                              value={category.id}
+                              control={<Radio />}
+                              label={category.name}
+                            />
+                          ))}
+                        </RadioGroup>
+                      )}
+                    />
+                  )}
+
+                  {/* Min & Max Price */}
+
+                  <Button
+                    fullWidth
+                    type="submit"
+                    variant="contained"
+                    sx={{
+                      backgroundColor: "#E47221",
+                      mt: 2,
+                      borderRadius: 0,
+                      boxShadow: 0,
+                      px: 8,
+                      pt: 1,
+                      pb: 1,
+                      "&.Mui-disabled": {
+                        backgroundColor: "#7445247a",
+                        color: "#fff",
+                      },
+                    }}
+                  >
+                    Filter
+                  </Button>
+                </Box>
               </Card>
             </Item>
           </Grid>
@@ -283,7 +441,7 @@ export default function Products() {
             <Item>
               {isLoading ? (
                 <Grid container spacing={3}>
-                  {Array.from({ length: 4 }).map((_, index) => (
+                  {Array.from({ length: 8 }).map((_, index) => (
                     <Grid key={index} size={{ xs: 12, sm: 6, md: 3 }}>
                       <Skeleton
                         variant="rounded"
@@ -295,7 +453,7 @@ export default function Products() {
                 </Grid>
               ) : isError ? (
                 <ErrorAlert message={error?.message} />
-              ) : data.response.data.length == 0 ? (
+              ) : data?.response.data.length == 0 ? (
                 <Alert
                   severity="info"
                   sx={{
