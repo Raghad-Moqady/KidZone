@@ -97,7 +97,7 @@ export default function Products() {
     }));
   };
 
-  // handel reset all filters
+  // handle reset all filters
   const handelResetAllFilters = () => {
     reset();
     setActiveFilters((prev) => ({
@@ -328,9 +328,7 @@ export default function Products() {
             </Grid>
           </Grid>
 
-          <Box sx={{ mt: "16px" }}>
-            <Typography color="#51443C">ACTIVE FILTERS:</Typography>
-          </Box>
+         
         </Card>
 
         <Grid container spacing={2}>
@@ -415,10 +413,7 @@ export default function Products() {
                       </Typography>
                     </Box>
                     <Box>
-                      <Typography sx={{marginTop:'22px'}}>
-                       __
-                      </Typography>
-                      
+                      <Typography sx={{ marginTop: "22px" }}>__</Typography>
                     </Box>
                     <Box>
                       <Typography sx={{ textAlign: "center" }}>
