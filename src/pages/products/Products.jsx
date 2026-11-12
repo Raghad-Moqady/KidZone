@@ -35,6 +35,7 @@ import Loader from "./../../components/loader/Loader.jsx";
 import { useForm, Controller } from "react-hook-form";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
+import RestartAltOutlinedIcon from "@mui/icons-material/RestartAltOutlined";
 //Page
 export default function Products() {
   const { id, content } = useParams();
@@ -67,7 +68,7 @@ export default function Products() {
     reset,
     setValue,
     formState: { isSubmitting },
-    watch
+    watch,
   } = useForm({
     defaultValues: {
       categoryId: id ? String(id) : "null",
@@ -92,6 +93,18 @@ export default function Products() {
     setActiveFilters((prev) => ({
       ...prev,
       ...formFilters,
+      page: 1,
+    }));
+  };
+
+  // handel reset all filters
+  const handelResetAllFilters = () => {
+    reset();
+    setActiveFilters((prev) => ({
+      ...prev,
+      categoryId: id ? Number(id) : null,
+      minPrice: null,
+      maxPrice: null,
       page: 1,
     }));
   };
@@ -383,14 +396,44 @@ export default function Products() {
                       />
                     )}
                   />
-                  <Box sx={{display:'flex', justifyContent:'space-between'}}>
+                  <Box
+                    sx={{ display: "flex", justifyContent: "space-between" }}
+                  >
                     <Box>
-                      <Typography sx={{textAlign:'center'}}>Min Price</Typography>
-                    <Typography sx={{ textAlign:'center',background:'#F8F1E8', paddingX:'20px', paddingY:'5px'}}>$ {watch("priceRange")[0]}</Typography>
+                      <Typography sx={{ textAlign: "center" }}>
+                        Min Price
+                      </Typography>
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          background: "#F8F1E8",
+                          paddingX: "20px",
+                          paddingY: "5px",
+                        }}
+                      >
+                        $ {watch("priceRange")[0]}
+                      </Typography>
                     </Box>
                     <Box>
-                      <Typography sx={{textAlign:'center'}}>Max Price</Typography>
-                    <Typography sx={{textAlign:'center' ,background:'#F8F1E8', paddingX:'20px', paddingY:'5px'}}>$ {watch("priceRange")[1]}</Typography>
+                      <Typography sx={{marginTop:'22px'}}>
+                       __
+                      </Typography>
+                      
+                    </Box>
+                    <Box>
+                      <Typography sx={{ textAlign: "center" }}>
+                        Max Price
+                      </Typography>
+                      <Typography
+                        sx={{
+                          textAlign: "center",
+                          background: "#F8F1E8",
+                          paddingX: "20px",
+                          paddingY: "5px",
+                        }}
+                      >
+                        $ {watch("priceRange")[1]}
+                      </Typography>
                     </Box>
                   </Box>
                   {/* categories */}
@@ -454,7 +497,7 @@ export default function Products() {
                       )}
                     />
                   )}
-
+                  {/* Submit */}
                   <Button
                     fullWidth
                     type="submit"
@@ -474,6 +517,25 @@ export default function Products() {
                     }}
                   >
                     Filter
+                  </Button>
+                  {/* Reset Filters */}
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    endIcon={<RestartAltOutlinedIcon />}
+                    onClick={handelResetAllFilters}
+                    sx={{
+                      fontWeight: "bold",
+                      backgroundColor: "white",
+                      border: 1,
+                      borderColor: "#E47221",
+                      color: "#E47221",
+                      marginTop: "10px",
+                      borderRadius: 0,
+                      boxShadow: 0,
+                    }}
+                  >
+                    Reset All
                   </Button>
                 </Box>
               </Card>
