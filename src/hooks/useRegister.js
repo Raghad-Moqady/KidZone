@@ -1,13 +1,13 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../Api/axiosInstance";
 import { ErrorToast, SuccessToast } from "../toast/Toast";
+import authAxiosInstance from "../Api/authAxiosInstance";
 
 export default function useRegister(){
         const navigate= useNavigate();
         // Mutation 
         const registerMutation = useMutation({
-            mutationFn: async values=>await axiosInstance.post(`/auth/Account/Register`,values),
+            mutationFn: async values=>await authAxiosInstance.post(`/auth/Account/Register`,values),
             onSuccess: (response)=>{
                 SuccessToast("Account created successfully! Please confirm your email, then log in.");
                 navigate("/auth/login");

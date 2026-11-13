@@ -1,14 +1,14 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../Api/axiosInstance";
 import { ErrorToast, SuccessToast } from "../toast/Toast";
+import authAxiosInstance from "../Api/authAxiosInstance";
 
 export default function useSendCode(){
   const navigate = useNavigate();
  //  Mutation
   const SendCodeMutation = useMutation({
     mutationFn: async (values) =>
-      await axiosInstance.post(`/auth/Account/SendCode`, values),
+      await authAxiosInstance.post(`/auth/Account/SendCode`, values),
     onSuccess: (response,values) => {
       localStorage.setItem("email", values.email);
       SuccessToast(response.data.message);

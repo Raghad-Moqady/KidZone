@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../Api/axiosInstance";
 import { ErrorToast, SuccessToast } from "../toast/Toast";
+import authAxiosInstance from "../Api/authAxiosInstance";
 
 export default function useResetPassword(){
   const navigate = useNavigate();
@@ -11,7 +11,7 @@ export default function useResetPassword(){
     mutationFn: async values =>{
       const email = localStorage.getItem("email");
       const payload = { email, ...values };
-      return  await axiosInstance.patch(`/auth/Account/ResetPassword`, payload);
+      return  await authAxiosInstance.patch(`/auth/Account/ResetPassword`, payload);
     },
     onSuccess: (response) => {
       SuccessToast(response?.data?.message);

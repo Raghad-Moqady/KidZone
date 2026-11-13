@@ -1,9 +1,9 @@
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../Api/axiosInstance";
 import { ErrorToast, SuccessToast } from "../toast/Toast";
 import useAuthStore from "../store/authStore";
 import decoder from "../decoder";
+import authAxiosInstance from "../Api/authAxiosInstance";
  
 export default function useLogin(){
   const setUserAccessToken = useAuthStore(state=> state.setUserAccessToken);
@@ -12,7 +12,7 @@ export default function useLogin(){
 
   //Mutation : 
   const loginMutation = useMutation({
-    mutationFn:async values=>await axiosInstance.post(`/auth/Account/Login`,values),
+    mutationFn:async values=>await authAxiosInstance.post(`/auth/Account/Login`,values),
     onSuccess:(response)=>{
         setUserAccessToken(response.data.accessToken);
         const decoded= decoder(response.data.accessToken);
