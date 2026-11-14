@@ -22,7 +22,7 @@ export default function Products() {
     return <Loader />;
   }
   return (
-    <Box sx={{ paddingTop: 4 }}>
+    <Box sx={{ paddingTop: 4,marginBottom:'50px' }}>
       <Container>
         <SectionTitle title={"Our Products"}>
           {/* children */}
