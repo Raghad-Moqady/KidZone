@@ -5,15 +5,14 @@ import {
   Box,
   Button,
   Card,
-  Checkbox,
   FormControl,
   FormControlLabel,
-  FormGroup,
   Grid,
   IconButton,
   InputBase,
   Link,
   MenuItem,
+  Pagination,
   Radio,
   RadioGroup,
   Select,
@@ -31,7 +30,6 @@ import ErrorAlert from "../../components/alert/ErrorAlert.jsx";
 import ProductCard from "../../components/shared/ProductCard.jsx";
 import TuneIcon from "@mui/icons-material/Tune";
 import useCategories from "./../../hooks/useCategories";
-import Loader from "./../../components/loader/Loader.jsx";
 import { useForm, Controller } from "react-hook-form";
 import CategoryOutlinedIcon from "@mui/icons-material/CategoryOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
@@ -52,6 +50,7 @@ export default function Products() {
     rateDesc: { sortBy: "rate", asc: false },
     rateAsc: { sortBy: "rate", asc: true },
   };
+
   const handelSortChange = (e) => {
     setSortValue(e.target.value);
     setActiveFilters((prev) => ({
@@ -118,10 +117,20 @@ export default function Products() {
     sortBy: null,
     asc: true,
     page: 1,
-    limit: 6,
+    limit: 8,
   });
   const { isLoading, isError, data, error } = useProducts(activeFilters);
-
+  
+  //Pagination
+  const numOfPages=Math.ceil(
+  (data?.response.totalCount ?? 0) / (data?.response.limit ?? activeFilters.limit)
+);  
+  const handlePagination =(e,value)=>{ 
+        setActiveFilters((prev) => ({
+        ...prev, 
+        page: value,
+      }));
+  }
   // لحل مشكلة الدخول اولا على هذه الصفحة من خلال تصنيف معين ثم الانتقال الى نفس الصقحة من خلال البروداكت الموجودة بالنافبار لان بدون هاد الكود ما رح يحدَث البيانات
   useEffect(() => {
     //for categories filter (react hook form)
@@ -327,8 +336,6 @@ export default function Products() {
               </Item>
             </Grid>
           </Grid>
-
-         
         </Card>
 
         <Grid container spacing={2}>
@@ -577,13 +584,29 @@ export default function Products() {
                       </Grid>
                     ))}
                   </Grid>
+                    {/*Pagination  */}
+                  <Card
+                    sx={{
+                      mt: "32px",
+                      boxShadow: "0px 1px 6px -1px rgba(0, 0, 0, 0.1)",
+                      p: "20px 20px 20px 20px",
+                      borderRadius: "10px",
+                      display: "flex",
+                      justifyContent:'space-between'
+                    }}
+                  >
+                  <Typography sx={{color:'#6F4627'}}>Showing <Typography component={'span'} sx={{fontWeight:'bold'}}>  {(activeFilters.page - 1) * activeFilters.limit + 1}– 
+                    {Math.min(
+        activeFilters.page* activeFilters.limit,
+        data?.response.totalCount ?? 0)} </Typography>of <Typography component={'span'} sx={{fontWeight:'bold'}}>{data?.response.totalCount}</Typography> items</Typography> 
+                  <Pagination count={numOfPages} variant="outlined" onChange={handlePagination} page={activeFilters.page} />
+                  </Card>
                 </>
               )}
-              
+               
             </Item>
           </Grid>
         </Grid>
-        
       </Box>
     </>
   );
