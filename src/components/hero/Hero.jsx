@@ -9,7 +9,7 @@ export default function Hero() {
   return (
      <Box sx={{
       backgroundImage:`url(${heroImg})`,
-      minHeight: "80vh",
+      minHeight: "100vh",
       backgroundSize: "cover" ,
       backgroundPosition:{xs:'right',sm:'top'},
       backgroundRepeat: "no-repeat",
@@ -19,7 +19,7 @@ export default function Hero() {
       content: '""',
       position: "absolute",
       right:0,left:0,
-      minHeight:'80vh',
+      minHeight:'100vh',
       backgroundColor: {
         xs: "#171616a1",
         sm: "transparent",
