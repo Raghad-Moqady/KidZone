@@ -12,6 +12,7 @@ import {
 import React from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
+import { Link as RouterLink } from "react-router-dom";
 
 export default function ProductCard({ product }) {
   return (
@@ -39,11 +40,13 @@ export default function ProductCard({ product }) {
           border: 1,
           borderRadius: 4,
           borderColor: "#E47221",
+          height: 220,
         }}
       >
         {/* image */}
         <CardMedia
-          sx={{ height: 220, backgroundSize: "contain" }}
+          component="img"
+          sx={{ height: "100%", objectFit: "cover" }}
           image={product.mainImage}
           title={product.name}
         />
@@ -73,7 +76,10 @@ export default function ProductCard({ product }) {
             right: -35,
             width: 140,
             textAlign: "center",
-            backgroundColor: product.status == "Active" ? "#4CAF50" : "red",
+            backgroundColor:
+              product.status === "Active" && product.quantity > 0
+                ? "#4CAF50"
+                : "red",
             color: "#fff",
             fontWeight: "bold",
             fontSize: 13,
@@ -82,7 +88,13 @@ export default function ProductCard({ product }) {
             boxShadow: "0 4px 10px rgba(0,0,0,.2)",
           }}
         >
-          {product.status == "Active" ? "Available" : "Sold Out"}
+          {product.status === "Active" && product.quantity > 0
+            ? "Available"
+            : product.status === "Active" && product.quantity === 0
+              ? "Out of Stock"
+              : product.status === "InActive"
+                ? "Unavailable"
+                : ""}
         </Box>
       </Card>
       {/* content */}
@@ -101,7 +113,12 @@ export default function ProductCard({ product }) {
         >
           {product.name}
         </Typography>
-        <Rating name="read-only" value={product.rate} readOnly precision={0.1} />
+        <Rating
+          name="read-only"
+          value={product?.rate ?? 0}
+          readOnly
+          precision={0.1}
+        />
         <Typography
           gutterBottom
           component="div"
@@ -117,8 +134,10 @@ export default function ProductCard({ product }) {
       {/* links */}
       <CardActions sx={{ justifyContent: "space-between", paddingBottom: 3 }}>
         <Button
+          component={RouterLink}
           variant="contained"
           endIcon={<ReadMoreIcon />}
+          to={`/products/${product.id}`}
           sx={{
             fontSize: { xs: "14px", sm: "16px" },
             backgroundColor: "#E47221",
@@ -130,6 +149,7 @@ export default function ProductCard({ product }) {
           Details
         </Button>
         <Button
+          disabled={product.status !== "Active" || product.quantity <= 0}
           size="large"
           sx={{
             color: "#E47221",

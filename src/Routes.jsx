@@ -13,6 +13,7 @@ import ResetPassword from './pages/auth/resetPassword/ResetPassword.jsx';
 import Profile from "./pages/profile/Profile.jsx";
 import GuestRouter from "./protectedRoute/GuestRouter.jsx";
 import ProtectedRouter from "./protectedRoute/ProtectedRouter.jsx";
+import ProductDetails from "./pages/productDetails/ProductDetails.jsx";
  
 const router = createBrowserRouter([
   //layout1
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path:'products',
         element:<Products/>
+      },
+      {
+        path:'products/:productId',
+        element:<ProductDetails/>
       },
       {
         path :'*',

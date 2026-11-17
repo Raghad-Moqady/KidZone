@@ -592,7 +592,8 @@ export default function Products() {
                       p: "20px 20px 20px 20px",
                       borderRadius: "10px",
                       display: "flex",
-                      justifyContent:'space-between'
+                      justifyContent:'space-between',
+                      alignItems:'center'
                     }}
                   >
                   <Typography sx={{color:'#6F4627'}}>Showing <Typography component={'span'} sx={{fontWeight:'bold'}}>  {(activeFilters.page - 1) * activeFilters.limit + 1}– 
