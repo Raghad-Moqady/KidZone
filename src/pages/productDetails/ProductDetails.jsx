@@ -25,7 +25,16 @@ export default function ProductDetails() {
     id: productId,
   });
   const [selectedImg, setSelectedImg] = useState(data?.product.mainImage);
- 
+
+  //handle decreaseQuantity & increaeseQuantity
+  const [quantity,setQuantity]=useState(1);
+   const decreaseQuantity = () =>
+    setQuantity((prev) => Math.max(1, prev - 1));
+
+    const increaseQuantity = () =>
+    setQuantity((prev) =>
+      Math.min(prev + 1, data?.product.quantity)
+    );
   useEffect(() => {
     if (data?.product?.mainImage) {
       setSelectedImg(data.product.mainImage);
@@ -190,16 +199,16 @@ export default function ProductDetails() {
              <Box sx={{display:'flex',mt:'26px',gap:2}}>
                    {/* Quantity */}
                    <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between' , borderRadius:'50px',padding:'0px 20px'}}>
-                      <IconButton disableRipple sx={{border:1 ,borderColor:'#E86328'}} aria-label="remove" >
+                      <IconButton onClick={decreaseQuantity} disabled={data?.product.status=="InActive"||data?.product.status=="Active" && data?.product.quantity==0?true:false}  sx={{border:1 ,borderColor:'#E86328'}} aria-label="remove" >
                         <RemoveOutlinedIcon sx={{color:'#E86328'}}/>
                       </IconButton>
-                      <Typography sx={{paddingX:'30px',paddingY:'8px',fontWeight:'bold',fontSize:'20px'}}>1</Typography>
-                       <IconButton disableRipple sx={{border:1,borderColor:'#E86328'}} aria-label="add">
+                      <Typography sx={{paddingX:'30px',paddingY:'8px',fontWeight:'bold',fontSize:'20px'}}>{quantity}</Typography>
+                       <IconButton onClick={increaseQuantity} disabled={data?.product.status=="InActive"||data?.product.status=="Active" && data?.product.quantity==0?true:false}  sx={{border:1,borderColor:'#E86328'}} aria-label="add">
                         <AddOutlinedIcon sx={{color:'#E86328'}}/>
                       </IconButton>
                    </Box>
                    {/* Add to cart Button  */}
-                 <Button  variant="contained"  fullWidth endIcon={<LocalMallOutlinedIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221", borderRadius:50,boxShadow:0}}>Add To Cart</Button>
+                 <Button disabled={data?.product.status=="InActive"||data?.product.status=="Active" && data?.product.quantity==0?true:false}  variant="contained"  fullWidth endIcon={<LocalMallOutlinedIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221", borderRadius:50,boxShadow:0}}>Add To Cart</Button>
              </Box>
 
             </Item>
