@@ -19,6 +19,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
+import useAddToCart from "../../hooks/useAddToCart.js";
 export default function ProductDetails() {
   const { productId } = useParams();
   const { data, isLoading, isError, error } = useProductDetails({
@@ -30,11 +31,19 @@ export default function ProductDetails() {
   const [quantity,setQuantity]=useState(1);
    const decreaseQuantity = () =>
     setQuantity((prev) => Math.max(1, prev - 1));
-
-    const increaseQuantity = () =>
+   const increaseQuantity = () =>
     setQuantity((prev) =>
       Math.min(prev + 1, data?.product.quantity)
     );
+
+  //Add To Cart Logic
+  const {AddToCartMutation}=useAddToCart();
+  const addToCart= async()=>{
+   await AddToCartMutation.mutateAsync({
+    "productId": data?.product.id,
+    "count": quantity
+   });
+  }
   useEffect(() => {
     if (data?.product?.mainImage) {
       setSelectedImg(data.product.mainImage);
@@ -44,7 +53,7 @@ export default function ProductDetails() {
     <Box
       sx={{ pt: "24px", pl: "32px", pr: "32px", pb: "72px" }}
       bgcolor="#FFF8F1"
-    >
+    > 
       <Box>
         <Link component={RouterLink} variant="h6" to={"/"} color="#8B5E3C">
           Home
@@ -208,7 +217,7 @@ export default function ProductDetails() {
                       </IconButton>
                    </Box>
                    {/* Add to cart Button  */}
-                 <Button disabled={data?.product.status=="InActive"||data?.product.status=="Active" && data?.product.quantity==0?true:false}  variant="contained"  fullWidth endIcon={<LocalMallOutlinedIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221", borderRadius:50,boxShadow:0}}>Add To Cart</Button>
+                 <Button onClick={addToCart}  disabled={data?.product.status=="InActive"||data?.product.status=="Active" && data?.product.quantity==0?true:false}  variant="contained"  fullWidth endIcon={<LocalMallOutlinedIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221", borderRadius:50,boxShadow:0}}>Add To Cart</Button>
              </Box>
 
             </Item>

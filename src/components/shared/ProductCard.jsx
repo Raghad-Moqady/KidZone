@@ -13,8 +13,15 @@ import React from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import { Link as RouterLink } from "react-router-dom";
+import useAddToCart from "../../hooks/useAddToCart.js";
 
 export default function ProductCard({ product }) {
+  const { AddToCartMutation } = useAddToCart();
+  const addToCart = async() => {
+    await AddToCartMutation.mutateAsync({
+      productId: product.id
+    });
+  }
   return (
     <Card
       variant="outlined"
@@ -149,6 +156,7 @@ export default function ProductCard({ product }) {
           Details
         </Button>
         <Button
+          onClick={addToCart}
           disabled={product.status !== "Active" || product.quantity <= 0}
           size="large"
           sx={{
