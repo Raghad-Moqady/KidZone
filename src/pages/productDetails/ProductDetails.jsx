@@ -20,6 +20,7 @@ import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import useAddToCart from "../../hooks/useAddToCart.js";
+import ProductDetailsLoadingPage from "./ProductDetailsLoadingPage.jsx";
 export default function ProductDetails() {
   const { productId } = useParams();
   const { data, isLoading, isError, error } = useProductDetails({
@@ -46,6 +47,10 @@ export default function ProductDetails() {
       setSelectedImg(data.product.mainImage);
     }
   }, [data?.product?.mainImage]);
+  
+  if(isLoading){
+    return <ProductDetailsLoadingPage/>
+  }
   return (
     <Box
       sx={{ pt: "24px", pl: "32px", pr: "32px", pb: "72px" }}
