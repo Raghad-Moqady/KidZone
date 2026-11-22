@@ -6,7 +6,9 @@ const axiosInstanceWithAUTHORIZATION = axios.create({
 });
 axiosInstanceWithAUTHORIZATION.interceptors.request.use((config) => {
   const userAccessToken = useAuthStore.getState().userAccessToken;
+
   config.headers["Authorization"] = `Bearer ${userAccessToken}`;
+
   return config;
 });
 export default axiosInstanceWithAUTHORIZATION;
