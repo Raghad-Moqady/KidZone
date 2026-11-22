@@ -28,7 +28,12 @@ export default function useAddToCart() {
         ErrorToast("Network error. Please try again.");
         return;
       }
-
+      //401 :Unauthorized 
+       if (response.status === 401) { 
+          ErrorToast('Please log in to continue.');
+          navigate("/auth/login");
+          return;
+      } 
       // 2.logic errors (400)
       if (response.status === 400 ||response.status === 404 ) {
         const data = response.data; 

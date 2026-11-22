@@ -156,6 +156,7 @@ export default function ProductCard({ product }) {
           Details
         </Button>
         <Button
+          loading={AddToCartMutation.isPending}
           onClick={addToCart}
           disabled={product.status !== "Active" || product.quantity <= 0}
           size="large"
