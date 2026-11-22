@@ -17,8 +17,8 @@ import useAddToCart from "../../hooks/useAddToCart.js";
 
 export default function ProductCard({ product }) {
   const { AddToCartMutation } = useAddToCart();
-  const addToCart = async() => {
-    await AddToCartMutation.mutateAsync({
+  const addToCart = () => {
+     AddToCartMutation.mutate({
       productId: product.id
     });
   }

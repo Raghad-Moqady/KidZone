@@ -35,8 +35,8 @@ export default function ProductDetails() {
 
   //Add To Cart Logic
   const {AddToCartMutation}=useAddToCart();
-  const addToCart= async()=>{
-   await AddToCartMutation.mutateAsync({
+  const addToCart= ()=>{
+    AddToCartMutation.mutate({
     "productId": data?.product.id,
     "count": quantity
    });
@@ -213,8 +213,9 @@ export default function ProductDetails() {
                         <AddOutlinedIcon sx={{color:'#E86328'}}/>
                       </IconButton>
                    </Box>
-                   {/* Add to cart Button  */}
-                 <Button onClick={addToCart}  disabled={data?.product.status=="InActive"||data?.product.status=="Active" && data?.product.quantity==0?true:false}  variant="contained"  fullWidth endIcon={<LocalMallOutlinedIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221", borderRadius:50,boxShadow:0}}>Add To Cart</Button>
+                   {/* Add to cart Button  */} 
+                 <Button onClick={addToCart} loading={AddToCartMutation.isPending} disabled={data?.product.status=="InActive"||data?.product.status=="Active" && data?.product.quantity==0?true:false}  variant="contained"  fullWidth endIcon={<LocalMallOutlinedIcon/>} sx={{fontSize:{xs:'14px',sm:'16px'}, backgroundColor:"#E47221", borderRadius:50,boxShadow:0}}>Add To Cart</Button>
+       
              </Box>
 
             </Item>
