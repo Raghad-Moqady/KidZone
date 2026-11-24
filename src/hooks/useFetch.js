@@ -2,9 +2,9 @@ import { useQuery } from "@tanstack/react-query";
 import axiosInstance from "../Api/axiosInstance";
 
 // public custom hook
-export default function useFetch(queryKey, url, params = {}) {
+export default function useFetch(queryKey, url, params = {} ,axios= axiosInstance) {
   const fetchData = async () => {
-    const response = await axiosInstance.get(url, {
+    const response = await axios.get(url, {
       params,
     });
     return response.data;
