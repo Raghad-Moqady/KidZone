@@ -1,10 +1,12 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import React from "react";
 import axiosInstanceWithAUTHORIZATION from "./../Api/axiosInstanceWithAUTHORIZATION.js";
 import { useNavigate } from "react-router-dom";
 import { ErrorToast, SuccessToast } from "../toast/Toast.js";
 
 export default function useAddToCart() {
+  const queryClient= useQueryClient();
+  const lang="en";
   const navigate = useNavigate();
   //Mutation :
   const AddToCartMutation = useMutation({
@@ -12,6 +14,7 @@ export default function useAddToCart() {
       await axiosInstanceWithAUTHORIZATION.post("/Carts", values),
     onSuccess: (response) => {
       SuccessToast(response.data.message);
+      queryClient.invalidateQueries({queryKey:["cart", { lang }]});
       navigate("/cart");
     },   
     onError: (err) => {
