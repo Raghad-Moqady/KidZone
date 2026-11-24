@@ -173,7 +173,7 @@ export default function ProductDetails() {
           <Grid size={6} >
             <Item sx={{display:'flex',flexDirection:'column',gap:'8px'}}>
              <Typography bgcolor={'#F7EDE1'} color='#92400E'sx={{width:'fit-content',p:'4px 18px 4px 18px',borderRadius:'50px' }}>{data?.product.categoryName}</Typography>
-             <Typography component={'h1'} variant='h4'  sx={{fontWeight:'bold' }}>{data?.product.name}</Typography>
+             <Typography component={'h1'} variant='h4'  sx={{fontWeight:'bold' ,color:'#8B5E3C'}}>{data?.product.name}</Typography>
              <Box sx={{display:'flex',alignItems:'center',gap:'12px',paddingBottom:'8px'}}>
              <Rating  name="read-only" value={data?.product.rate ?? 0} readOnly  precision={0.1} />      
              <Typography color='#44403C' sx={{fontSize:'16px'}}>{data?.product.rate}</Typography>
@@ -182,7 +182,7 @@ export default function ProductDetails() {
              </Box> 
               <Divider/>
               <Box sx={{display:'flex', gap:'12px',alignItems:'center' ,paddingBottom:'5px',paddingTop:'5px'}}>
-                <Typography component={'p'} variant='h4'  sx={{fontWeight:'bold' }}>$ {data?.product.price}</Typography>
+                <Typography component={'p'} variant='h4'  sx={{fontWeight:'bold' ,color:'#8b5e3cd9'}}>$ {data?.product.price}</Typography>
                
                {/* status=Active | quantity= >0 ====> In Stock • Ready to dispatch (green)*/}
               {/* status=Active | quantity=0 =====> Out of Stock • Currently unavailable (red)*/}
@@ -209,11 +209,11 @@ export default function ProductDetails() {
              </Typography>
              <Box sx={{display:'flex',mt:'26px',gap:2}}>
                    {/* Quantity */}
-                   <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between' , borderRadius:'50px',padding:'0px 20px'}}>
+                   <Box sx={{display:'flex',alignItems:'center',justifyContent:'space-between' ,padding:'0px 20px'}}>
                       <IconButton onClick={decreaseQuantity} disabled={data?.product.status=="InActive"||data?.product.status=="Active" && data?.product.quantity==0?true:false}  sx={{border:1 ,borderColor:'#E86328'}} aria-label="remove" >
                         <RemoveOutlinedIcon sx={{color:'#E86328'}}/>
                       </IconButton>
-                      <Typography sx={{paddingX:'30px',paddingY:'8px',fontWeight:'bold',fontSize:'20px'}}>{quantity}</Typography>
+                      <Typography sx={{paddingX:'30px',paddingY:'8px',fontWeight:'bold',fontSize:'20px',color:'#8B5E3C'}}>{quantity}</Typography>
                        <IconButton onClick={increaseQuantity} disabled={data?.product.status=="InActive"||data?.product.status=="Active" && data?.product.quantity==0?true:false}  sx={{border:1,borderColor:'#E86328'}} aria-label="add">
                         <AddOutlinedIcon sx={{color:'#E86328'}}/>
                       </IconButton>

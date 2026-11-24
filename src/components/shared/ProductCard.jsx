@@ -132,7 +132,7 @@ export default function ProductCard({ product }) {
           sx={{
             fontSize: { xs: "24px", sm: "21px", lg: "20px" },
             fontWeight: "bold",
-            color: "#6aa385",
+            color: "#8b5e3cd9",
           }}
         >
           ${product.price}
