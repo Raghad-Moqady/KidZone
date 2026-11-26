@@ -22,9 +22,14 @@ import UpdateOutlinedIcon from '@mui/icons-material/UpdateOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
+import useClearCart from "../../hooks/useClearCart.js";
 export default function Cart() {
-  const { data, isLoading, isError, error } = useCart();
 
+  const { data, isLoading, isError, error } = useCart();
+  const{ClearCartMutaion} =useClearCart();
+  const clearCart=()=>{
+     ClearCartMutaion.mutate();
+  }
   return (
     <Box
       sx={{ pt: "24px", pl: "32px", pr: "32px", pb: "72px" }}
@@ -91,6 +96,9 @@ export default function Cart() {
             Your little one's favorites, lovingly gathered in one safe space.
           </Typography>
           <Button
+          onClick={clearCart}
+          loading={ClearCartMutaion.isPending}
+          disabled={ClearCartMutaion.isPending}
             sx={{
               display: "flex",
               backgroundColor: "#FFDAD6",
