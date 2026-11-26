@@ -23,6 +23,8 @@ import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
 import useClearCart from "../../hooks/useClearCart.js";
+import CartLoadingPage from "./CartLoadingPage.jsx";
+import EmptyCart from "./EmptyCart.jsx";
 export default function Cart() {
 
   const { data, isLoading, isError, error } = useCart();
@@ -30,9 +32,12 @@ export default function Cart() {
   const clearCart=()=>{
      ClearCartMutaion.mutate();
   }
+  if(isLoading){
+    return <CartLoadingPage/>
+  } 
   return (
     <Box
-      sx={{ pt: "24px", pl: "32px", pr: "32px", pb: "72px" }}
+      sx={{ pt: "24px", pl: "32px", pr: "32px", pb: "40px" }}
       bgcolor="#FFF8F1"
     >
       {/* Links */}
@@ -90,6 +95,8 @@ export default function Cart() {
             </Typography>
           </Box>
         </Box>
+        {data?.cartProducts.length==0?<EmptyCart/>:
+        <>
         {/* Box 2 */}
         <Box sx={{ display: "flex", justifyContent: "space-between",alignItems:'center'}}>
           <Typography color="#51443C">
@@ -210,6 +217,8 @@ export default function Cart() {
             </Item>
           </Grid>
         </Grid>
+        </>
+        }
       </Box>
     </Box>
   );
