@@ -18,7 +18,6 @@ import Item from "@mui/material/Grid";
 import  RemoveOutlinedIcon  from '@mui/icons-material/RemoveOutlined';
 import  AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
-import UpdateOutlinedIcon from '@mui/icons-material/UpdateOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
 import ArrowForwardOutlinedIcon from '@mui/icons-material/ArrowForwardOutlined';
 import ArrowBackOutlinedIcon from '@mui/icons-material/ArrowBackOutlined';
@@ -158,7 +157,6 @@ export default function Cart() {
                        <IconButton    sx={{border:1,borderColor:'#E86328'}} aria-label="add">
                         <AddOutlinedIcon fontSize="small" sx={{color:'#E86328'}}/>
                       </IconButton> 
-                        <Button endIcon={<UpdateOutlinedIcon/>}  sx={{backgroundColor:'#E47221',color:'white',borderRadius:50,paddingX:'20px'}}   >Update </Button>
                    </Box>
 
                   </Box>
