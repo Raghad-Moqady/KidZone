@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import axiosInstanceWithAUTHORIZATION from "./../Api/axiosInstanceWithAUTHORIZATION.js";
 import { useNavigate } from "react-router-dom";
-import { ErrorToast, SuccessToast } from "../toast/Toast.js";
+import axiosInstanceWithAUTHORIZATION from "../../Api/axiosInstanceWithAUTHORIZATION";
+import { ErrorToast, SuccessToast } from "../../toast/Toast";
+
 
 export default function useAddToCart() {
   const queryClient= useQueryClient();

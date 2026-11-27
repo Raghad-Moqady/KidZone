@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import React from "react";
-import axiosInstanceWithAUTHORIZATION from "../Api/axiosInstanceWithAUTHORIZATION";
-import { SuccessToast } from "../toast/Toast";
+import axiosInstanceWithAUTHORIZATION from "../../Api/axiosInstanceWithAUTHORIZATION";
+import { SuccessToast } from "../../toast/Toast";
+
 
 export default function useClearCart() {
     const queryClient=useQueryClient();

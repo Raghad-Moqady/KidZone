@@ -19,7 +19,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord';
 import AddOutlinedIcon from '@mui/icons-material/AddOutlined';
 import RemoveOutlinedIcon from '@mui/icons-material/RemoveOutlined';
 import LocalMallOutlinedIcon from '@mui/icons-material/LocalMallOutlined';
-import useAddToCart from "../../hooks/useAddToCart.js";
+import useAddToCart from "../../hooks/cart/useAddToCart.js";
 import ProductDetailsLoadingPage from "./ProductDetailsLoadingPage.jsx";
 export default function ProductDetails() {
   const { productId } = useParams();

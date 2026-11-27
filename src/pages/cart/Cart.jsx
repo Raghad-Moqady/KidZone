@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import useCart from "../../hooks/useCart.js";
 import {
   Box,
   Button,
@@ -21,15 +20,20 @@ import DeleteOutlineOutlinedIcon from "@mui/icons-material/DeleteOutlineOutlined
 import LocalMallOutlinedIcon from "@mui/icons-material/LocalMallOutlined";
 import ArrowForwardOutlinedIcon from "@mui/icons-material/ArrowForwardOutlined";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import useClearCart from "../../hooks/useClearCart.js";
+import useClearCart from "../../hooks/cart/useClearCart.js";
 import CartLoadingPage from "./CartLoadingPage.jsx";
 import EmptyCart from "./EmptyCart.jsx";
-import useRemoveCartItem from "../../hooks/useRemoveCartItem.js";
+import useRemoveCartItem from "../../hooks/cart/useRemoveCartItem.js";
+import useCart from "../../hooks/cart/useCart.js";
+import useUpdateQuantity from "../../hooks/cart/useUpdateQuantity.js";
 export default function Cart() {
   const { data, isLoading, isError, error } = useCart();
   const { ClearCartMutaion } = useClearCart();
   const { removeCartItemMutation } = useRemoveCartItem();
   const [deletingProductId, setDeletingProductId] = useState(null);
+
+  const {updateQuantityMutation}=useUpdateQuantity();
+  const [updatingProductId,setUpdatingProductId]=useState(null);
 
   const clearCart = () => {
     ClearCartMutaion.mutate();
@@ -38,6 +42,10 @@ export default function Cart() {
     setDeletingProductId(productId);
     removeCartItemMutation.mutate(productId);
   };
+  const updateQuantity=(productId,NewCount)=>{
+   setUpdatingProductId(productId);
+   updateQuantityMutation.mutate({productId,NewCount});
+  }
   if (isLoading) {
     return <CartLoadingPage />;
   }
@@ -199,14 +207,22 @@ export default function Cart() {
                             }}
                           >
                             <IconButton
-                              sx={{ border: 1, borderColor: "#E86328" }}
+                              disabled={cartItem.productId==updatingProductId && updateQuantityMutation.isPending || cartItem.productCount==1}
+                              onClick={()=>updateQuantity(cartItem.productId,cartItem.productCount-1)}
+                              sx={{ border: 1, borderColor: "#E86328", "&.Mui-disabled": {
+                              backgroundColor: "#F1E5DA",
+                              borderColor:'#a99a8e3e'
+                            }, }}
                               aria-label="remove"
                             >
                               <RemoveOutlinedIcon
                                 fontSize="small"
-                                sx={{ color: "#E86328" }}
+                                 sx={{
+                                  color:cartItem.productId==updatingProductId && updateQuantityMutation.isPending || cartItem.productCount==1 ?"#A99A8E":"#E86328" 
+                                }}  
                               />
                             </IconButton>
+
                             <Typography
                               sx={{
                                 fontWeight: "bold",
@@ -216,13 +232,22 @@ export default function Cart() {
                             >
                               {cartItem.productCount}
                             </Typography>
+
                             <IconButton
-                              sx={{ border: 1, borderColor: "#E86328" }}
+                             disabled={cartItem.productId==updatingProductId && updateQuantityMutation.isPending}
+                             onClick={()=>updateQuantity(cartItem.productId,cartItem.productCount+1)}
+                              sx={{ border: 1, borderColor: "#E86328", "&.Mui-disabled": {
+                              backgroundColor: "#F1E5DA",
+                              borderColor:'#a99a8e3e'
+                            }, }}
                               aria-label="add"
                             >
                               <AddOutlinedIcon
                                 fontSize="small"
-                                sx={{ color: "#E86328" }}
+                                sx={{
+                                  color:cartItem.productId==updatingProductId && updateQuantityMutation.isPending?"#A99A8E":"#E86328" 
+                                }}
+                                  
                               />
                             </IconButton>
                           </Box>

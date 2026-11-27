@@ -13,7 +13,7 @@ import React from "react";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import ReadMoreIcon from "@mui/icons-material/ReadMore";
 import { Link as RouterLink } from "react-router-dom";
-import useAddToCart from "../../hooks/useAddToCart.js";
+import useAddToCart from "../../hooks/cart/useAddToCart.js";
 
 export default function ProductCard({ product }) {
   const { AddToCartMutation } = useAddToCart();
