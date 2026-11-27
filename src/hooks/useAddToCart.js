@@ -6,7 +6,6 @@ import { ErrorToast, SuccessToast } from "../toast/Toast.js";
 
 export default function useAddToCart() {
   const queryClient= useQueryClient();
-  const lang="en";
   const navigate = useNavigate();
   //Mutation :
   const AddToCartMutation = useMutation({
@@ -14,7 +13,9 @@ export default function useAddToCart() {
       await axiosInstanceWithAUTHORIZATION.post("/Carts", values),
     onSuccess: (response) => {
       SuccessToast(response.data.message);
-      queryClient.invalidateQueries({queryKey:["cart", { lang }]});
+      //بغض النظر عن اللغة 
+      queryClient.invalidateQueries({queryKey: ['cart']});
+
       navigate("/cart");
     },   
     onError: (err) => {
